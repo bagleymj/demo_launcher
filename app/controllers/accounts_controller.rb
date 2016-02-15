@@ -1,4 +1,4 @@
-class AccountController < ApplicationController
+class AccountsController < ApplicationController
   def index
     @accounts = Account.all
 
@@ -14,7 +14,12 @@ class AccountController < ApplicationController
 
 
   def create
-
+    @account = Account.new(params[:account])
+    if @account.save
+      redirect_to accounts_path
+    else
+      render :new
+    end
   end
   
   
