@@ -1,0 +1,30 @@
+<h1>Account Settings</h2>
+<table>
+  <tr>
+    <td>
+      Access Key ID
+    </td>
+    <td>
+      Secret Access Key
+    </td>
+    <td>
+      Template URL
+    </td>
+  </tr>
+  <% if @accounts.empty? %>
+    <%= link_to 'Add account info' :controller => 'account', :action => :new %>
+  <% end %>
+  <% @accounts.each do |account| %>
+    <tr>
+      <td>
+        <%= account.access_key_id %>
+      </td>
+      <td>
+        <%= account.secret_access_key %>
+      </td>
+      <td>
+        <%= account.template_url %>
+      </td>
+    </tr>
+  <% end %>
+</table>
