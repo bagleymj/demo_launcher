@@ -37,10 +37,11 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    aws-sdk (2.2.16)
-      aws-sdk-resources (= 2.2.16)
     aws-sdk-core (2.2.16)
       jmespath (~> 1.0)
+    aws-sdk-rails (1.0.1)
+      aws-sdk-resources (~> 2)
+      railties (>= 3)
     aws-sdk-resources (2.2.16)
       aws-sdk-core (= 2.2.16)
     binding_of_caller (0.7.2)
@@ -149,7 +150,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk (~> 2)
+  aws-sdk-rails
   byebug
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)

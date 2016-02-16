@@ -10,6 +10,9 @@
     <td>
       Template URL
     </td>
+    <td>
+      &nbsp;
+    </td>
   </tr>
   <% if @accounts.empty? %>
          <%= link_to "Add account info", new_account_path %>
@@ -24,6 +27,9 @@
       </td>
       <td>
         <%= account.template_url %>
+      </td>
+      <td>
+        <%= link_to "Update", edit_account_path(account.id) %>
       </td>
     </tr>
   <% end %>

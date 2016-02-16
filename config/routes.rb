@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'accounts#index'
 
   resources :accounts
+  resources :stacks
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

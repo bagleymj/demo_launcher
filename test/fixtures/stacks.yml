@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stack_id: MyString
+  stack_name: MyString
+
+two:
+  stack_id: MyString
+  stack_name: MyString

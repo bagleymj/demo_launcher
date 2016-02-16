@@ -10,9 +10,12 @@
     <td>
       Template URL
     </td>
+    <td>
+      &nbsp;
+    </td>
   </tr>
   <% if @accounts.empty? %>
-    <%= link_to 'Add account info' :controller => 'account', :action => :new %>
+         <%= link_to "Add account info", new_account_path %>
   <% end %>
   <% @accounts.each do |account| %>
     <tr>
@@ -24,6 +27,9 @@
       </td>
       <td>
         <%= account.template_url %>
+      </td>
+      <td>
+        <%= link_to "Update", edit_account_path, :id => account.id %>
       </td>
     </tr>
   <% end %>
