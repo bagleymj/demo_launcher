@@ -1,0 +1,22 @@
+<h1>AWS Stacks</h1>
+<table>
+  <tr>
+    <td>
+      Stack ID
+    </td>
+    <td>
+      Stack Name
+    </td>
+  </tr>
+  <% @stacks.each do |stack| %>
+    <tr>
+      <td>
+        <%= stack.stack_id %>
+      </td>
+      <td>
+        <%= stack.stack_name %>
+      </td>
+    </tr>
+  <% end %>
+
+</table>

@@ -15,7 +15,7 @@ class StacksController < ApplicationController
     secret_access_key = Account.all[0].secret_access_key
     stack_name = @stack.stack_name
     template_url = Account.all[0].template_url
-    cloudformation = AWS::CloudFormation::Client.new(access_key_id: access_key_id, secret_access_key: secret_access_key)
+    cloudformation = Aws::CloudFormation::Client.new(access_key_id: access_key_id, secret_access_key: secret_access_key)
     new_stack = cloudformation.create_stack(stack_name: stack_name, template_url: template_url)
     if new_stack.empty?
       render :new

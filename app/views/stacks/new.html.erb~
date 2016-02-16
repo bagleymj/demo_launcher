@@ -1,0 +1,13 @@
+<h1>Create New Stack</h2>
+
+<div>
+  <%= form_for :stack do |f| %>
+    <div>
+      <%= f.label :stack_name %><br />
+      <%= f.text_field :stack_name %>
+    </div>
+    <div>
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
