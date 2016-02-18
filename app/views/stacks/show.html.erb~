@@ -26,7 +26,7 @@
   <% end %>
 </table>
 <h2>Volumes</h2>
-<%= @standard_volumes.each do |volume| %>
+<% @standard_volumes.each do |volume| %>
   <div>
     <%= volume.volume_id %>
   </div>

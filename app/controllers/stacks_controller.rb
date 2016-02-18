@@ -34,23 +34,24 @@ class StacksController < ApplicationController
     cloudformation = new_client
     resp = cloudformation.list_stack_resources(stack_name: stack_name)
     @resources = resp[0]
+    @standard_volumes = get_volumes(stack_name, cloudformation)
 
     #Find storage volumes for SX.e and Ming.le
-    sxe = @resources.select{|resource|resource[:logical_resource_id] == 'sxeInstance'}
-    sxe_id = sxe[0].physical_resource_id
-    mng = @resources.select{|resource|resource[:logical_resource_id] == 'mingleInstance'}
-    mng_id = mng[0].physical_resource_id
-    ec2 = new_ec2_client
-    resp2 = ec2.describe_volumes({
-      filters: [
-        {
-          name: 'attachment.instance-id',
-          values: [sxe_id, mng_id]
-        }
-      ]
-    })
-    volumes = resp2.volumes
-    @standard_volumes = volumes.select{|volume| volume[:volume_type] == 'standard'}
+    #sxe = @resources.select{|resource|resource[:logical_resource_id] == 'sxeInstance'}
+    #sxe_id = sxe[0].physical_resource_id
+    #mng = @resources.select{|resource|resource[:logical_resource_id] == 'mingleInstance'}
+    #mng_id = mng[0].physical_resource_id
+    #ec2 = new_ec2_client
+    #resp2 = ec2.describe_volumes({
+    #  filters: [
+    #    {
+    #      name: 'attachment.instance-id',
+    #      values: [sxe_id, mng_id]
+    #    }
+    #  ]
+    #})
+    #volumes = resp2.volumes
+    #@standard_volumes = volumes.select{|volume| volume[:volume_type] == 'standard'}
 
     
 
@@ -77,6 +78,7 @@ class StacksController < ApplicationController
     @stack = Stack.find(params[:id])
     stack_name = @stack.stack_name
     cloudformation = new_client
+    volumes = get_volumes(cloudformation)
     cloudformation.delete_stack(stack_name: stack_name)
     @stack.destroy
     redirect_to stacks_path
@@ -113,5 +115,33 @@ class StacksController < ApplicationController
     secret_access_key = Account.all[0].secret_access_key
     return secret_access_key
   end
+
+  def get_volumes(stack_name, cloudformation)
+    resp = cloudformation.list_stack_resources(stack_name: stack_name)
+    @resources = resp[0]
+
+    #Find storage volumes for SX.e and Ming.le
+    sxe = @resources.select{|resource|resource[:logical_resource_id] == 'sxeInstance'}
+    sxe_id = sxe[0].physical_resource_id
+    mng = @resources.select{|resource|resource[:logical_resource_id] == 'mingleInstance'}
+    mng_id = mng[0].physical_resource_id
+    ec2 = new_ec2_client
+    resp2 = ec2.describe_volumes({
+      filters: [
+        {
+          name: 'attachment.instance-id',
+          values: [sxe_id, mng_id]
+        }
+      ]
+    })
+    volumes = resp2.volumes
+    standard_volumes = volumes.select{|volume| volume[:volume_type] == 'standard'}
+    volume_list = []
+    standard_volumes.each do |volume|
+      volume_list << volume.volume_id
+    end
+    return volume_list
+  end
+
 
 end
