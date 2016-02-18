@@ -49,7 +49,10 @@ class StacksController < ApplicationController
         }
       ]
     })
-    @volumes = resp2.volumes[0]
+    volumes = resp2.volumes
+    @standard_volumes = volumes.select{|volume| volume[:volume_type] == 'standard'}
+
+    
 
     
   end

@@ -44,12 +44,12 @@ class StacksController < ApplicationController
     resp2 = ec2.describe_volumes({
       filters: [
         {
-          name: 'attachment.instance_id',
+          name: 'attachment.instance-id',
           values: [sxe_id, mng_id]
         }
       ]
     })
-    @volumes = resp2.volumes[0]
+    @volumes = resp2.volumes
 
     
   end
