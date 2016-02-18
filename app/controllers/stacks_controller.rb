@@ -78,8 +78,17 @@ class StacksController < ApplicationController
     @stack = Stack.find(params[:id])
     stack_name = @stack.stack_name
     cloudformation = new_client
-    volumes = get_volumes(cloudformation)
+    volumes = get_volumes(stack_name, cloudformation)
+    #detach volumes
+    #
+    #CODE GOES HERE
+    #
     cloudformation.delete_stack(stack_name: stack_name)
+    #delete volumes
+    ec2 = new_ec2_client
+    volumes.each do |volume|
+      ec2.delete_volume(volume_id: volume)
+    end
     @stack.destroy
     redirect_to stacks_path
   end

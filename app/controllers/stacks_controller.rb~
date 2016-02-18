@@ -34,7 +34,7 @@ class StacksController < ApplicationController
     cloudformation = new_client
     resp = cloudformation.list_stack_resources(stack_name: stack_name)
     @resources = resp[0]
-    @standard_volumes = get_volumes(cloudformation)
+    @standard_volumes = get_volumes(stack_name, cloudformation)
 
     #Find storage volumes for SX.e and Ming.le
     #sxe = @resources.select{|resource|resource[:logical_resource_id] == 'sxeInstance'}
@@ -78,8 +78,13 @@ class StacksController < ApplicationController
     @stack = Stack.find(params[:id])
     stack_name = @stack.stack_name
     cloudformation = new_client
-    volumes = get_volumes(cloudformation)
+    volumes = get_volumes(stack_name, cloudformation)
     cloudformation.delete_stack(stack_name: stack_name)
+    #delete volumes
+    ec2 = new_ec2_client
+    volumes.each do |volume|
+      ec2.delete_volume(volume_id: volume)
+    end
     @stack.destroy
     redirect_to stacks_path
   end
@@ -116,7 +121,7 @@ class StacksController < ApplicationController
     return secret_access_key
   end
 
-  def get_volumes(cloudformation)
+  def get_volumes(stack_name, cloudformation)
     resp = cloudformation.list_stack_resources(stack_name: stack_name)
     @resources = resp[0]
 
