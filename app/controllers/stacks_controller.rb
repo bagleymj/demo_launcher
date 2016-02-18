@@ -34,7 +34,24 @@ class StacksController < ApplicationController
     cloudformation = new_client
     resp = cloudformation.list_stack_resources(stack_name: stack_name)
     @resources = resp[0]
+
+    #Find storage volumes for SX.e and Ming.le
+    sxe = @resources.select{|resource|resource[:logical_resource_id] == 'sxeInstance'}
+    sxe_id = sxe[0].physical_resource_id
+    mng = @resources.select{|resource|resource[:logical_resource_id] == 'mingleInstance'}
+    mng_id = mng[0].physical_resource_id
     ec2 = new_ec2_client
+    resp2 = ec2.describe_volumes({
+      filters: [
+        {
+          name: 'attachment.instance-id',
+          values: [sxe_id, mng_id]
+        }
+      ]
+    })
+    @volumes = resp2.volumes[0]
+
+    
   end
 
 
@@ -69,16 +86,29 @@ class StacksController < ApplicationController
   end
   
   def new_client
-    access_key_id = Account.all[0].access_key_id
-    secret_access_key = Account.all[0].secret_access_key
+    access_key_id = get_access_key_id
+    secret_access_key = get_secret_access_key
     cloudformation = Aws::CloudFormation::Client.new(access_key_id: access_key_id,
                                                       secret_access_key: secret_access_key)
     return cloudformation
   end
 
   def new_ec2_client
+    access_key_id = get_access_key_id
+    secret_access_key = get_secret_access_key
+    ec2 = Aws::EC2::Client.new(access_key_id: access_key_id,
+                               secret_access_key: secret_access_key)
+    return ec2
   end
 
+  def get_access_key_id
+    access_key_id = Account.all[0].access_key_id
+    return access_key_id
+  end
 
+  def get_secret_access_key
+    secret_access_key = Account.all[0].secret_access_key
+    return secret_access_key
+  end
 
 end
