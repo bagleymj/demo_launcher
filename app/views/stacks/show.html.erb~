@@ -1,0 +1,15 @@
+<h1>Resources for <%= @stack.stack_name %></h1>
+<table>
+  <tr>
+    <th>
+      Physical Resource ID
+    </th>
+  </tr>
+  <% @resources.each do |resource| %>
+    <tr>
+      <td>
+        <%= resource.physical_resource_id %>
+      </td>
+    </tr>
+  <% end %>
+</table>
