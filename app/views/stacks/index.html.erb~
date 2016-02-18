@@ -8,16 +8,22 @@
       Stack ID
     </td>
     <td>
+      Public IP
+    </td>
+    <td>
       Actions
     </td>
   </tr>
   <% @stacks.each do |stack| %>
     <tr>
       <td>
-        <%= stack.stack_name %>
+        <%= link_to stack.stack_name, stack_path(stack.id) %>
       </td>
       <td>
         <%= stack.stack_id %>
+      </td>
+      <td>
+        <%= get_public_ip(stack) %>
       </td>
       <td>
         <%= link_to "Delete", stack, :method => :delete %>

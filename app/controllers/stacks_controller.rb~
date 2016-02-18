@@ -1,6 +1,7 @@
 class StacksController < ApplicationController
   def index
     @stacks = Stack.all
+    @cloudformation = new_client
   end
 
 

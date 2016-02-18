@@ -1,6 +1,7 @@
 class StacksController < ApplicationController
   def index
     @stacks = Stack.all
+    @cloudformation = new_client
   end
 
 
@@ -33,6 +34,7 @@ class StacksController < ApplicationController
     cloudformation = new_client
     resp = cloudformation.list_stack_resources(stack_name: stack_name)
     @resources = resp[0]
+    ec2 = new_ec2_client
   end
 
 
@@ -73,4 +75,10 @@ class StacksController < ApplicationController
                                                       secret_access_key: secret_access_key)
     return cloudformation
   end
+
+  def new_ec2_client
+  end
+
+
+
 end
