@@ -2,13 +2,25 @@
 <table>
   <tr>
     <td>
+      Logical Resource ID
+    </td>
+    <td>
       Physical Resource ID
+    </td>
+    <td>
+      Resource Type
     </td>
   </tr>
   <% @resources.each do |resource| %>
     <tr>
       <td>
+        <%= resource.logical_resource_id %>
+      </td>
+      <td>
         <%= resource.physical_resource_id %>
+      </td>
+      <td>
+        <%= resource.resource_type %>
       </td>
     </tr>
   <% end %>

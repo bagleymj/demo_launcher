@@ -1,9 +1,9 @@
 <h1>Resources for <%= @stack.stack_name %></h1>
 <table>
   <tr>
-    <th>
+    <td>
       Physical Resource ID
-    </th>
+    </td>
   </tr>
   <% @resources.each do |resource| %>
     <tr>
