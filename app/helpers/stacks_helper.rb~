@@ -4,11 +4,17 @@ module StacksHelper
     resources = resp[0]
     ip_resource = resources.select{|resource| resource.logical_resource_id == 'demoPublcIP'}
     if ip_resource[0].nil?
-      ip_address == '--loading--'
+      ip_address = '--loading--'
     else
       ip_address = ip_resource[0].physical_resource_id
     end
     return ip_address
+  end
+
+  def get_stack_status(stack_name)
+    resp = @cloudformation.describe_stacks({stack_name: stack_name})
+    stack_status = resp[0].stack[0].stack_status
+    return stack_status
   end
 
 #  def new_client

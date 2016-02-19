@@ -1,35 +1,40 @@
-<h1>AWS Stacks</h1>
-<table>
-  <tr>
-    <td>
-      Stack Name
-    </td>
-    <td>
-      Stack ID
-    </td>
-    <td>
-      Public IP
-    </td>
-    <td>
-      Actions
-    </td>
-  </tr>
-  <% @stacks.each do |stack| %>
-    <tr>
-      <td>
-        <%= link_to stack.stack_name, stack_path(stack.id) %>
-      </td>
-      <td>
-        <%= stack.stack_id %>
-      </td>
-      <td>
-        <%= get_public_ip(stack) %>
-      </td>
-      <td>
-        <%= link_to "Delete", stack, :method => :delete %>
-      </td>
-    </tr>
-  <% end %>
-
-</table>
-<%= link_to "Create New Stack", new_stack_path %>
+<div class="container">
+  <div class="row">
+    <h1>AWS Stacks</h1>
+  </div>
+  <div class="row">
+    <table class="table table-striped">
+      <tr>
+        <th>
+          Stack Name
+        </th>
+        <th>
+          Stack Status
+        </th>
+        <th>
+          Public IP
+        </th>
+        <th>
+          Actions
+        </th>
+      </tr>
+      <% @stacks.each do |stack| %>
+        <tr>
+          <td>
+            <%= link_to stack.stack_name, stack_path(stack.id) %>
+          </td>
+          <td>
+            <%= get_stack_status(stack.stack_name) %> 
+          </td>
+          <td>
+            <%= get_public_ip(stack.stack_name) %>
+          </td>
+          <td>
+            <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= button_to "Create New Stack", new_stack_path, :method => :get, class: 'btn btn-success' %>
+    </div>
+</div>

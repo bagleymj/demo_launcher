@@ -11,6 +11,12 @@ module StacksHelper
     return ip_address
   end
 
+  def get_stack_status(stack_name)
+    resp = @cloudformation.describe_stacks({stack_name: stack_name})
+    stack_status = resp[0][0].stack_status
+    return stack_status
+  end
+
 #  def new_client
 #    access_key_id = Account.all[0].access_key_id
 #    secret_access_key = Account.all[0].secret_access_key
