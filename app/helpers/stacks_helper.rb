@@ -3,7 +3,11 @@ module StacksHelper
     resp = @cloudformation.list_stack_resources(stack_name: stack_name)
     resources = resp[0]
     ip_resource = resources.select{|resource| resource.logical_resource_id == 'demoPublcIP'}
-    ip_address = ip_resource[0].physical_resource_id
+    if ip_resource[0].nil?
+      ip_address = '--loading--'
+    else
+      ip_address = ip_resource[0].physical_resource_id
+    end
     return ip_address
   end
 

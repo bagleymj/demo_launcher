@@ -79,9 +79,26 @@ class StacksController < ApplicationController
     stack_name = @stack.stack_name
     cloudformation = new_client
     volumes = get_volumes(stack_name, cloudformation)
+    #detach volumes
+    ec2 = new_ec2_client
+    volume_state = 'in-use'
+    attachment_state = 'attached'
+    volumes.each do |volume|
+      ec2.detach_volume(volume_id: volume, force: true)
+    end
+    volumes.each do |volume|
+      until volume_state == 'available' && attachment_state == 'detached'
+        resp = ec2.describe_volumes(volume_ids: [volume])
+        volume_state =resp[0][0].state
+        if resp[0][0].attachments.empty?
+          attachment_state = 'detached'
+        end
+      end
+      volume_state = 'in-use'
+      attachment_state = 'attached'
+    end
     cloudformation.delete_stack(stack_name: stack_name)
     #delete volumes
-    ec2 = new_ec2_client
     volumes.each do |volume|
       ec2.delete_volume(volume_id: volume)
     end

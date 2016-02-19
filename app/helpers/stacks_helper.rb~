@@ -2,8 +2,12 @@ module StacksHelper
   def get_public_ip(stack_name)
     resp = @cloudformation.list_stack_resources(stack_name: stack_name)
     resources = resp[0]
-    ip_resource = resources.select{|resource| resource.logical_resource_id == 'demoPublicIP'}
-    ip_address = ip_resource.physical_resource_id
+    ip_resource = resources.select{|resource| resource.logical_resource_id == 'demoPublcIP'}
+    if ip_resource[0].nil?
+      ip_address == '--loading--'
+    else
+      ip_address = ip_resource[0].physical_resource_id
+    end
     return ip_address
   end
 
