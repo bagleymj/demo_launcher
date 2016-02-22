@@ -3,6 +3,7 @@ class StacksController < ApplicationController
     @title = "AWS Stacks"
     @stacks = @current_user.stacks.all
     @cloudformation = new_client
+    @ec2 = new_ec2_client
   end
 
 
@@ -18,7 +19,15 @@ class StacksController < ApplicationController
     template_url = Account.all[0].template_url
     cloudformation = new_client
     if @stack.save
-      new_stack = cloudformation.create_stack(stack_name: stack_name, template_url: template_url)
+      new_stack = cloudformation.create_stack(stack_name: stack_name, 
+                                              template_url: template_url,
+                                              tags: [
+                                                {
+                                                  key: "Company",
+                                                  value: @current_user.company_name
+                                                }
+                                              ]
+                                              )
       @stack.stack_id = new_stack[:stack_id]
       redirect_to stacks_path
     else

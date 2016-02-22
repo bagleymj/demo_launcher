@@ -1,11 +1,14 @@
 class StacksController < ApplicationController
   def index
+    @title = "AWS Stacks"
     @stacks = @current_user.stacks.all
     @cloudformation = new_client
+    @ec2 = new_ec2_client
   end
 
 
   def new
+    @title = "Create New Stack"
     @stack = @current_user.stacks.new
   end
 
@@ -16,7 +19,9 @@ class StacksController < ApplicationController
     template_url = Account.all[0].template_url
     cloudformation = new_client
     if @stack.save
-      new_stack = cloudformation.create_stack(stack_name: stack_name, template_url: template_url)
+      new_stack = cloudformation.create_stack(stack_name: stack_name, 
+                                              template_url: template_url
+                                              )
       @stack.stack_id = new_stack[:stack_id]
       redirect_to stacks_path
     else
@@ -28,6 +33,7 @@ class StacksController < ApplicationController
 
   def show
     @stack = Stack.find(params[:id])
+    @title = "Resources for #{@stack.stack_name}"
     stack_name = @stack.stack_name
     cloudformation = new_client
     resp = cloudformation.list_stack_resources(stack_name: stack_name)

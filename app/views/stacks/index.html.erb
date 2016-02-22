@@ -8,6 +8,9 @@
           Public IP
         </th>
         <th>
+          Server Status
+        </th>
+        <th>
           Stack Status
         </th>
         <th>
@@ -25,6 +28,9 @@
           </td>
           <td>
             <%= get_public_ip(stack.stack_name) %>
+          </td>
+          <td>
+            <%= get_server_status(stack.stack_name) %>
           </td>
           <td>
             <%= get_stack_status(stack.stack_name) %> 

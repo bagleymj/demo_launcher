@@ -17,6 +17,21 @@ module StacksHelper
     return stack_status
   end
 
+  def get_server_status(stack_name)
+    resp = @cloudformation.list_stack_resources({stack_name: stack_name})
+    resources = resp[0]
+    ts_resource = resources.select{|resource| resource.logical_resource_id == 'tsInstance'}
+    if ts_resource[0].nil?
+      server_status = '--loading--'
+    else
+      instance_id = ts_resource[0].physical_resource_id
+      resp2 = @ec2.describe_instance_status({instance_ids: [instance_id]})
+      server_status = resp2[0][0].system_status.status
+    end
+    return server_status
+
+  end
+
 #  def new_client
 #    access_key_id = Account.all[0].access_key_id
 #    secret_access_key = Account.all[0].secret_access_key
