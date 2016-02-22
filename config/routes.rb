@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :accounts
   resources :stacks
+  resources :users
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

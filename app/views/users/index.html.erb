@@ -1,0 +1,28 @@
+<table class="table table-striped">
+  <tr>
+    <th>
+      User Name
+    </th>
+    <th>
+      Display Name
+    </th>
+    <th>
+      Company Name
+    </th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td>
+        <%= user.username %>
+      </td>
+      <td>
+        <%= user.display_name %>
+      </td>
+      <td>
+        <%= user.company_name %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Add New User", new_user_path %>
+
