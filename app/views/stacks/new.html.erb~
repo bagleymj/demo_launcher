@@ -5,6 +5,13 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-md-12">
+      <h3>
+        Stack Name
+      </h3>
+    </div>
+  </div>
+  <div class="row">
     <%= form_for :stack, :url => stacks_path, class: "form-group" do |f| %>
       <div class="col-md-8">
         <%= f.text_field :stack_name, class: "form-control" %>
@@ -12,6 +19,11 @@
       <div class="col-md-4">
         <%= f.submit "Launch Environment", class: "btn btn-success" %>
       </div>
+      <% if !flash[:danger].nil? %>
+        <% flash[:danger].each do |message| %>
+          <p class="text-danger"><%= message %></p>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 <div>

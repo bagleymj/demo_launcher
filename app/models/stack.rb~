@@ -1,3 +1,8 @@
 class Stack < ActiveRecord::Base
+  validates_format_of :stack_name, :with => /\A[a-zA-Z]\w+\z/, :on => :create
+  validates :stack_name, 
+    presence: true, 
+    uniqueness: true,
+    format: { with: /\A[a-zA-Z]\w+\z/ }
   belongs_to :user
 end

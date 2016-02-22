@@ -15,17 +15,15 @@ class StacksController < ApplicationController
     stack_name = @stack.stack_name
     template_url = Account.all[0].template_url
     cloudformation = new_client
-    new_stack = cloudformation.create_stack(stack_name: stack_name, template_url: template_url)
-    if new_stack.empty?
-      render :new
-    else
+    if @stack.save
+      new_stack = cloudformation.create_stack(stack_name: stack_name, template_url: template_url)
       @stack.stack_id = new_stack[:stack_id]
-      if @stack.save
-        redirect_to stacks_path
-      else
-        render :new
-      end
+      redirect_to stacks_path
+    else
+      flash[:danger] = @stack.errors.full_messages 
+      render :new
     end
+   
   end
 
   def show
