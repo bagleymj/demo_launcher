@@ -9,10 +9,10 @@
           Stack Name
         </th>
         <th>
-          Stack Status
+          Public IP
         </th>
         <th>
-          Public IP
+          Stack Status
         </th>
         <th>
           Actions
@@ -24,10 +24,10 @@
             <%= link_to stack.stack_name, stack_path(stack.id) %>
           </td>
           <td>
-            <%= get_stack_status(stack.stack_name) %> 
+            <%= get_public_ip(stack.stack_name) %>
           </td>
           <td>
-            <%= get_public_ip(stack.stack_name) %>
+            <%= get_stack_status(stack.stack_name) %> 
           </td>
           <td>
             <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger' %>

@@ -21,7 +21,11 @@
       <% @stacks.each do |stack| %>
         <tr>
           <td>
-            <%= link_to stack.stack_name, stack_path(stack.id) %>
+            <% if get_stack_status(stack.stack_name) == "CREATE_COMPLETE" %>
+              <%= link_to stack.stack_name, stack_path(stack.id) %>
+            <% else %>
+              <%= stack.stack_name %>
+            <% end %>
           </td>
           <td>
             <%= get_public_ip(stack.stack_name) %>
