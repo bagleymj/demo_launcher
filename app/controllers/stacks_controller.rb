@@ -1,11 +1,13 @@
 class StacksController < ApplicationController
   def index
+    @title = "AWS Stacks"
     @stacks = @current_user.stacks.all
     @cloudformation = new_client
   end
 
 
   def new
+    @title = "Create New Stack"
     @stack = @current_user.stacks.new
   end
 
@@ -28,6 +30,7 @@ class StacksController < ApplicationController
 
   def show
     @stack = Stack.find(params[:id])
+    @title = "Resources for #{@stack.stack_name}"
     stack_name = @stack.stack_name
     cloudformation = new_client
     resp = cloudformation.list_stack_resources(stack_name: stack_name)

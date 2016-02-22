@@ -8,11 +8,14 @@
 </head>
 <body>
   <div class="container">
-    <% if !logged_in? %>
-      <%= redirect_to login_path %>
-    <% else %>
-      <%= yield %>
-    <% end %>
+    <div class="row">
+      <div class="col-md-12">
+        <h1><%= @title %></h1>
+      </div>
+    </div>
+  </div>
+    
+    <%= yield %>
 
   </div>
 

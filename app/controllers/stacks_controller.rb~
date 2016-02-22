@@ -2,7 +2,6 @@ class StacksController < ApplicationController
   def index
     @stacks = @current_user.stacks.all
     @cloudformation = new_client
-    flash[:danger].clear
   end
 
 
