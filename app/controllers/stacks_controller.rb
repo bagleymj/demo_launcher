@@ -1,17 +1,17 @@
 class StacksController < ApplicationController
   def index
-    @stacks = Stack.all
+    @stacks = @current_user.stacks.all
     @cloudformation = new_client
   end
 
 
   def new
-    @stack = Stack.new
+    @stack = @current_user.stacks.new
   end
 
 
   def create
-    @stack = Stack.new(stack_params)
+    @stack = @current_user.stacks.new(stack_params)
     stack_name = @stack.stack_name
     template_url = Account.all[0].template_url
     cloudformation = new_client

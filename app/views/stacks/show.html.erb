@@ -1,15 +1,15 @@
 <h1>Resources for <%= @stack.stack_name %></h1>
-<table>
+<table class="table table-striped">
   <tr>
-    <td>
+    <th>
       Logical Resource ID
-    </td>
-    <td>
+    </th>
+    <th>
       Physical Resource ID
-    </td>
-    <td>
+    </th>
+    <th>
       Resource Type
-    </td>
+    </th>
   </tr>
   <% @resources.each do |resource| %>
     <tr>

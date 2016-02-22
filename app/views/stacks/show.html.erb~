@@ -1,5 +1,5 @@
 <h1>Resources for <%= @stack.stack_name %></h1>
-<table>
+<table class="table table-striped">
   <tr>
     <td>
       Logical Resource ID
@@ -28,6 +28,6 @@
 <h2>Volumes</h2>
 <% @standard_volumes.each do |volume| %>
   <div>
-    <%= volume.volume_id %>
+    <%= volume %>
   </div>
 <%end%>
