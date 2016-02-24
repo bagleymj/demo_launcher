@@ -36,11 +36,7 @@
             <%= get_stack_status(stack.stack_name) %> 
           </td>
           <td>
-            <div class="btn-group" role="group" aria-label="actions">
-              <%= button_to "Start", stack, :method => :delete, class: 'btn btn-success' %>
-              <%= button_to "Stop", stack, :method => :delete, class: 'btn btn-warning' %>
-              <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
-            </div>
+            <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
           </td>
         </tr>
       <% end %>

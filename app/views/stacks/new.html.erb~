@@ -5,7 +5,7 @@
       </h3>
       <p>SX.e Sales Demo</p>
       <h3>Estimated Monthly Cost</h3>
-      <p><%= link_to "Estimate", url: @cost, target: "_blank" %></p>
+      <p><%= link_to "Estimate", @cost, target: "_blank" %></p>
     </div>
   </div>
 
