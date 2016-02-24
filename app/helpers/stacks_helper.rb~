@@ -26,10 +26,14 @@ module StacksHelper
     else
       instance_id = ts_resource[0].physical_resource_id
       resp2 = @ec2.describe_instance_status({instance_ids: [instance_id]})
-      server_status = resp2[0].instance_statuses[0].system_status.status
+      server_status = resp2[0][0].system_status.status
     end
     return server_status
 
+  end
+
+  def estimate_cost
+    template_url = Account.all[0].template_url
   end
 
 #  def new_client

@@ -48,6 +48,11 @@
         <%= f.submit "Create User", class: "btn btn-primary" %>
       </div>
     </div>
+    <% if !flash[:danger].nil? %>
+      <% flash[:danger].each do |message| %>
+        <p class="text-danger"><%= message %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
 

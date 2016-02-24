@@ -2,7 +2,7 @@
   <h1>New User</h1>
 </div>
 <div class="row">
-  <%= form_for :user, class: "form-group"  do |f| %>
+  <%= form_for @user, class: "form-group"  do |f| %>
     <div class="row">
       <div class="col-md-2">
         <%= f.label :username %>
@@ -45,7 +45,7 @@
     </div>
     <div class="row">
       <div class="col-md-2">
-        <%= f.submit "Create User", url: users_path, class: "btn btn-primary" %>
+        <%= f.submit "Create User", class: "btn btn-primary" %>
       </div>
     </div>
   <% end %>

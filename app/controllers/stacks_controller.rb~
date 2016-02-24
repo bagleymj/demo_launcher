@@ -9,6 +9,7 @@ class StacksController < ApplicationController
 
   def new
     @title = "Create New Stack"
+    @cloudformation = new_client
     @stack = @current_user.stacks.new
   end
 
@@ -20,7 +21,13 @@ class StacksController < ApplicationController
     cloudformation = new_client
     if @stack.save
       new_stack = cloudformation.create_stack(stack_name: stack_name, 
-                                              template_url: template_url
+                                              template_url: template_url,
+                                              tags: [
+                                                {
+                                                  key: "Company",
+                                                  value: @current_user.company_name
+                                                }
+                                              ]
                                               )
       @stack.stack_id = new_stack[:stack_id]
       redirect_to stacks_path

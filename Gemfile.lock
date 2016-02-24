@@ -44,6 +44,9 @@ GEM
       railties (>= 3)
     aws-sdk-resources (2.2.16)
       aws-sdk-core (= 2.2.16)
+    awscosts (0.0.12)
+      httparty (~> 0.11.0)
+      oj (~> 2.1)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -63,6 +66,9 @@ GEM
     execjs (2.6.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -88,8 +94,10 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    oj (2.14.5)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -165,6 +173,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-rails
+  awscosts
   bcrypt (~> 3.1.7)
   byebug
   coffee-rails (~> 4.1.0)
