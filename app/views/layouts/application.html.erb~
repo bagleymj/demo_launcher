@@ -7,23 +7,25 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <!--
+  
   <div class="modal fade" id="loadingBar" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          I Am
+          Please wait...
         </div>
         <div class="modal-body">
-          Placeholer
-        </div>
-        <div class="modal-footer">
-          Text
+          Gently preparing environment for extermination.
+          <div class=progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+              <span class="sr-only">100% Complete</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  -->
+  
   <div class="container">
     <div class="row">
       <div class="col-md-12">
