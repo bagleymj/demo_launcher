@@ -21,13 +21,16 @@ module StacksHelper
     resp = @cloudformation.list_stack_resources({stack_name: stack_name})
     resources = resp[0]
     ts_resource = resources.select{|resource| resource.logical_resource_id == 'tsInstance'}
-    if !stack_created?(stack_name)
-      server_status = '--loading--'
-    else
-      instance_id = ts_resource[0].physical_resource_id
-      resp2 = @ec2.describe_instance_status({instance_ids: [instance_id]})
-      server_status = resp2[0][0].system_status.status
-    end
+    #if !stack_created?(stack_name)
+    #  server_status = '--loading--'
+    #elsif ts_resource.nil?
+    #  server_status = '--unknown--'
+    #else
+    #  instance_id = ts_resource[0].physical_resource_id
+    #  resp2 = @ec2.describe_instance_status({instance_ids: [instance_id]})
+    #  server_status = resp2[0][0].system_status.status
+    #end
+    server_status = 'Under Construction'
     return server_status
 
   end
@@ -37,16 +40,8 @@ module StacksHelper
     stack_status == 'CREATE_COMPLETE'
   end
 
-  def get_instance_ids(stack_name)
-    resp = @cloudformation.list_stack_resources({stack_name: stack_name})
-    resources = resp[0]
-    instance_resources = resources.select{|resource| resource.resource_type == 'AWS::EC2::Instance'}
-    instance_ids = []
-    instance_resources.each do |instance|
-      instance_ids << instance.physical_resource_id
-    end
-    return instance_ids
-  end
+
+
   
 
 #  def new_client

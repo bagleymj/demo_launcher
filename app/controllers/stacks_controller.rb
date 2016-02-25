@@ -177,6 +177,26 @@ class StacksController < ApplicationController
     end
     return volume_list
   end
+  
+  def get_instance_ids(stack_name)
+    cloudformation = new_client
+    resp = cloudformation.list_stack_resources({stack_name: stack_name})
+    resources = resp[0]
+    instance_resources = resources.select{|resource| resource.resource_type == 'AWS::EC2::Instance'}
+    instance_ids = []
+    instance_resources.each do |instance|
+      instance_ids << instance.physical_resource_id
+    end
+    return instance_ids
+  end
+
+  def stop_instances
+    ec2 = new_ec2_client
+    stack = Stack.find(params[:id])
+    instance_ids = get_instance_ids(stack.stack_name)
+    ec2.stop_instances(instance_ids: instance_ids, force: true)
+    redirect_to stacks_path
+  end
 
 
 end

@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
+  post 'stacks/:id/stop_instances' => 'stacks#stop_instances'
+  post 'stop_instances' => 'stacks#stop_instances'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

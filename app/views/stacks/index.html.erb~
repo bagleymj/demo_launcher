@@ -1,3 +1,5 @@
+
+  <%= render 'loading_bar' %> 
   <div class="row">
     <table class="table table-striped">
       <tr>
@@ -36,6 +38,7 @@
             <%= get_stack_status(stack.stack_name) %> 
           </td>
           <td>
+            <%= button_to "Stop", stop_instances_path, id: stack.id, :method => :post, class: 'btn btn-warning' %>
             <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
           </td>
         </tr>
