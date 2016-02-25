@@ -37,8 +37,12 @@
             <%= get_stack_status(stack.stack_name) %> 
           </td>
           <td>
-            <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
-            <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning' %>
+            <% if all_servers_not_started?(stack.stack_name) %>
+              <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
+            <% end %>
+            <% if servers_running?(stack.stack_name) %>
+              <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning' %>
+            <% end %>
             <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
           </td>
         </tr>

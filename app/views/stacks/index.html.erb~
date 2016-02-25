@@ -31,13 +31,15 @@
             <%= get_public_ip(stack.stack_name) %>
           </td>
           <td>
-            <%= get_server_state(stack.stack_name) %>
+            <%= get_pretty_server_state(stack.stack_name) %>
           </td>
           <td>
             <%= get_stack_status(stack.stack_name) %> 
           </td>
           <td>
-            <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
+            <% if all_servers_not_started?(stack.stack_name) %>
+              <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
+            <% end %>
             <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning' %>
             <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
           </td>

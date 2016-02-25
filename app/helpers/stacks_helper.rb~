@@ -43,7 +43,7 @@ module StacksHelper
     reservations.each do |reservation|
       reservation.instances.each do |instance|
         instance_count += 1
-        if instance.state.name == "running"
+        if instance.state.name != "stopped"
           running_count += 1
         end
       end
@@ -57,11 +57,21 @@ module StacksHelper
   def get_pretty_server_state(stack_name)
     if stack_created?(stack_name)
       server_state = get_server_state(stack_name)
-      pretty_server_state = server_state[:running].to_s + " of " + server_state[:total] + " running" 
+      pretty_server_state = server_state[:running].to_s + " of " + server_state[:total].to_s + " running" 
     else
       pretty_server_state = "--loading--"
     end
     return pretty_server_state
+  end
+  
+  def all_servers_not_started?(stack_name)
+    server_state = get_server_state(stack_name)
+    server_state[:running] < server_state[:total]
+  end
+
+  def servers_running?(stack_name)
+    server_state = get_server_state(stack_name)
+    server_state[:running] > 0
   end
 
 #  def new_client
