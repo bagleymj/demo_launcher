@@ -17,32 +17,52 @@ module StacksHelper
     return stack_status
   end
 
-  #def get_server_status(stack_name)
-   # resp = @cloudformation.list_stack_resources({stack_name: stack_name})
-   # resources = resp[0]
-   # ts_resource = resources.select{|resource| resource.logical_resource_id == 'tsInstance'}
-    #if !stack_created?(stack_name)
-    #  server_status = '--loading--'
-    #elsif ts_resource.nil?
-    #  server_status = '--unknown--'
-    #else
-    #  instance_id = ts_resource[0].physical_resource_id
-    #  resp2 = @ec2.describe_instance_status({instance_ids: [instance_id]})
-    #  server_status = resp2[0][0].system_status.status
-    #end
-    #server_status = 'Under Construction'
-    #return server_status
-
-  #end
-
   def stack_created?(stack_name)
     stack_status = get_stack_status(stack_name)
     stack_status == 'CREATE_COMPLETE'
   end
-
-
-
   
+  def get_instance_ids(stack_name)
+    resp = @cloudformation.list_stack_resources({stack_name: stack_name})
+    resources = resp[0]
+    instance_resources = resources.select{|resource| resource.resource_type == 'AWS::EC2::Instance'}
+    instance_ids = []
+    instance_resources.each do |instance|
+      instance_ids << instance.physical_resource_id
+    end
+    return instance_ids
+  end
+
+  def get_server_state(stack_name)
+    instance_ids = get_instance_ids(stack_name)
+    resp = @ec2.describe_instances(instance_ids: instance_ids)
+    reservations = resp[0]
+    instance_count = 0
+    running_count = 0
+    instances = []
+    reservations.each do |reservation|
+      reservation.instances.each do |instance|
+        instance_count += 1
+        if instance.state.name == "running"
+          running_count += 1
+        end
+      end
+    end
+    server_state = {}
+    server_state[:total] = instance_count
+    server_state[:running] = running_count
+    return server_state
+  end
+
+  def get_pretty_server_state(stack_name)
+    if stack_created?(stack_name)
+      server_state = get_server_state(stack_name)
+      pretty_server_state = server_state[:running].to_s + " of " + server_state[:total].to_s + " running" 
+    else
+      pretty_server_state = "--loading--"
+    end
+    return pretty_server_state
+  end
 
 #  def new_client
 #    access_key_id = Account.all[0].access_key_id
