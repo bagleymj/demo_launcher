@@ -17,10 +17,10 @@ module StacksHelper
     return stack_status
   end
 
-  def get_server_status(stack_name)
-    resp = @cloudformation.list_stack_resources({stack_name: stack_name})
-    resources = resp[0]
-    ts_resource = resources.select{|resource| resource.logical_resource_id == 'tsInstance'}
+  #def get_server_status(stack_name)
+   # resp = @cloudformation.list_stack_resources({stack_name: stack_name})
+   # resources = resp[0]
+   # ts_resource = resources.select{|resource| resource.logical_resource_id == 'tsInstance'}
     #if !stack_created?(stack_name)
     #  server_status = '--loading--'
     #elsif ts_resource.nil?
@@ -30,10 +30,10 @@ module StacksHelper
     #  resp2 = @ec2.describe_instance_status({instance_ids: [instance_id]})
     #  server_status = resp2[0][0].system_status.status
     #end
-    server_status = 'Under Construction'
-    return server_status
+    #server_status = 'Under Construction'
+    #return server_status
 
-  end
+  #end
 
   def stack_created?(stack_name)
     stack_status = get_stack_status(stack_name)
