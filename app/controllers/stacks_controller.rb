@@ -198,5 +198,13 @@ class StacksController < ApplicationController
     redirect_to stacks_path
   end
 
+  def start_instances
+    ec2 = new_ec2_client
+    stack = Stack.find(params[:id])
+    instance_ids = get_instance_ids(stack.stack_name)
+    ec2.start_instances(instance_ids: instance_ids)
+    redirect_to stacks_path
+  end
+
 
 end
