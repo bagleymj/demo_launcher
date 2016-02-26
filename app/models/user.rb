@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
     presence: true,
     length: {:maximum => 50}
 
+  validates :admin,
+    presence: true
+
   has_secure_password
   
   has_many :stacks
