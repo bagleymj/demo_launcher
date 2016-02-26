@@ -1,7 +1,15 @@
 class StacksController < ApplicationController
+  skip_before_filter :require_admin
+
+
   def index
+    if is_admin?
+      @stacks = Stack.all
+    else
+      @stacks = @current_user.stacks.all
+    end
+
     @title = "AWS Stacks"
-    @stacks = @current_user.stacks.all
     @cloudformation = new_client
     @ec2 = new_ec2_client
   end
