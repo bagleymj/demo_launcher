@@ -5,6 +5,14 @@
         <th>
           Stack Name
         </th>
+        <% if is_admin? %>
+          <th>
+            User
+          </th>
+          <th>
+            Company
+          </th>
+        <% end %>
         <th>
           Public IP
         </th>
@@ -27,6 +35,14 @@
               <%= stack.stack_name %>
             <% end %>
           </td>
+          <% if is_admin? %>
+            <td>
+              <%= stack.user.display_name %>
+            </td>
+            <td>
+              <%- stack.user.company_name %>
+            </td>
+          <% end %>
           <td>
             <%= get_public_ip(stack.stack_name) %>
           </td>
@@ -37,7 +53,7 @@
             <%= get_stack_status(stack.stack_name) %> 
           </td>
           <td>
-            <div class="btn btn-group">
+            <div class="btn-group">
             <% if all_servers_not_started?(stack.stack_name) %>
               <div style="width:auto; float:left">
                 <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
