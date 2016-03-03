@@ -40,7 +40,7 @@
               <%= stack.user.display_name %>
             </td>
             <td>
-              <%- stack.user.company_name %>
+              <%= stack.user.company_name %>
             </td>
           <% end %>
           <td>
