@@ -54,19 +54,21 @@
           </td>
           <td>
             <div class="btn-group">
-            <% if all_servers_not_started?(stack.stack_name) %>
+            <% if stack_created?(stack.stack_name) %>
+              <% if all_servers_not_started?(stack.stack_name) %>
+                <div style="width:auto; float:left">
+                  <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
+                </div>
+              <% end %>
+              <% if servers_running?(stack.stack_name) %>
+                <div style="width:auto; float:left">
+                  <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning' %>
+                </div>
+              <% end %>
               <div style="width:auto; float:left">
-                <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
-            <% end %>
-              </div>
-            <% if servers_running?(stack.stack_name) %>
-              <div style="width:auto; float:left">
-                <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning' %>
+                <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
               </div>
             <% end %>
-            <div style="width:auto; float:left">
-              <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
-            </div>
             </div>
           </td>
         </tr>
