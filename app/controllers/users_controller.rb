@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
 
   def new
+    @title = "New User"
     @user = User.new
 
   end
@@ -20,6 +21,21 @@ class UsersController < ApplicationController
       flash[:danger] = @user.errors.full_messages
       render :new
     end
+  end
+
+  def edit
+    @title = "Edit User"
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      redirect_to users_path
+    else
+      flash[:danger] == @user.errors.full_messages
+    end
+
   end
 
   

@@ -1,18 +1,18 @@
 <h1>Account Settings</h2>
-<table>
+<table class="table table-striped">
   <tr>
-    <td>
+    <th>
       Access Key ID
-    </td>
-    <td>
+    </th>
+    <th>
       Secret Access Key
-    </td>
-    <td>
+    </th>
+    <th>
       Template URL
-    </td>
-    <td>
-      &nbsp;
-    </td>
+    </th>
+    <th>
+      Actions
+    </th>
   </tr>
   <% if @accounts.empty? %>
          <%= link_to "Add account info", new_account_path %>

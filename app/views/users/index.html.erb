@@ -9,6 +9,9 @@
     <th>
       Company Name
     </th>
+    <th>
+      Actions
+    </th>
   </tr>
   <% @users.each do |user| %>
     <tr>
@@ -20,6 +23,9 @@
       </td>
       <td>
         <%= user.company_name %>
+      </td>
+      <td>
+        <%= link_to "Edit", edit_user_path(user.id) %>|<%= link_to "Delete", url: "#" %>
       </td>
     </tr>
   <% end %>
