@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def index
+    @title = "User List"
     @users = User.all
   end
 
@@ -33,9 +34,21 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       redirect_to users_path
     else
-      flash[:danger] == @user.errors.full_messages
+      flash[:danger] = @user.errors.full_messages
     end
 
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    if @user.stacks.all.empty?
+      @user.destroy
+      redirect_to users_path
+    else
+      flash[:danger] = "The user, #{@user.display_name}, has active stacks, 
+                        please delete them before deleting this user."
+      redirect_to users_path
+    end
   end
 
   
