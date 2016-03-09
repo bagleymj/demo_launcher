@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login, :require_admin
+  skip_before_filter :require_login, :require_admin, :require_accounts
 
   def new
     @title = "Log In"
