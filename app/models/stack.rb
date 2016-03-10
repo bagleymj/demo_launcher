@@ -1,5 +1,4 @@
 class Stack < ActiveRecord::Base
-  validates_format_of :stack_name, :with => /\A[a-zA-Z]\w+\z/, :on => :create
   validates :stack_name, 
     presence: true, 
     uniqueness: true,
@@ -8,4 +7,5 @@ class Stack < ActiveRecord::Base
       message: "Must begin with alpha character and contain only letters, numbers, and dashes" 
     }
   belongs_to :user
+  belongs_to :template
 end

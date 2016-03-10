@@ -27,7 +27,7 @@ class StacksController < ApplicationController
   def create
     @stack = @current_user.stacks.new(stack_params)
     stack_name = @stack.stack_name
-    template_url = Account.all[0].template_url
+    template_url = @stack.template.template_url
     cloudformation = new_client
     if @stack.save
       new_stack = cloudformation.create_stack(stack_name: stack_name, 
@@ -109,7 +109,7 @@ class StacksController < ApplicationController
 
 
   def stack_params
-    params.require(:stack).permit(:stack_name)
+    params.require(:stack).permit(:stack_name,:template_id)
   end
   
   def new_client
