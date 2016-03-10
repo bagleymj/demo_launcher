@@ -7,10 +7,6 @@
       <%= f.text_field :secret_access_key %>
     </div>
     <div>
-      <%= f.label :region %><br />
-      <%= f.text_field :region %>
-    </div>
-    <div>
       <%= f.label :template_url %><br />
       <%= f.text_field :template_url %>
     </div>

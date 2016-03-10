@@ -57,6 +57,6 @@ class AccountsController < ApplicationController
 
     
   def account_params
-    params.require(:account).permit(:access_key_id,:secret_access_key,:template_url)
+    params.require(:account).permit(:access_key_id,:secret_access_key,:region,:template_url)
   end
 end

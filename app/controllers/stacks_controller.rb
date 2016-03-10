@@ -115,16 +115,20 @@ class StacksController < ApplicationController
   def new_client
     access_key_id = get_access_key_id
     secret_access_key = get_secret_access_key
+    region = get_region
     cloudformation = Aws::CloudFormation::Client.new(access_key_id: access_key_id,
-                                                      secret_access_key: secret_access_key)
+                                                     secret_access_key: secret_access_key,
+                                                     region: region)
     return cloudformation
   end
 
   def new_ec2_client
     access_key_id = get_access_key_id
     secret_access_key = get_secret_access_key
+    region = get_region
     ec2 = Aws::EC2::Client.new(access_key_id: access_key_id,
-                               secret_access_key: secret_access_key)
+                               secret_access_key: secret_access_key,
+                               region: region)
     return ec2
   end
 
@@ -136,6 +140,10 @@ class StacksController < ApplicationController
   def get_secret_access_key
     secret_access_key = Account.all[0].secret_access_key
     return secret_access_key
+  end
+
+  def get_region
+    Account.all[0].region
   end
 
   def get_volumes(stack_name, cloudformation)
