@@ -1,36 +1,17 @@
-  <div class = "row">
-    <div class = "col-md-12">
-      <h3>
-        Template Name  
-      </h3>
-      <p>SX.e Sales Demo</p>
-      <h3>Estimated Monthly Cost</h3>
-      <p><%= link_to "Estimate", @cost, target: "_blank" %></p>
-    </div>
-  </div>
-
-<div class="row">
-    <div class="col-md-12">
-      <h3>
-        Stack Name
-      </h3>
-    </div>
-  </div>
   <div class="row">
-    <%= form_for :stack, :url => stacks_path, class: "form-group" do |f| %>
-      <div class="col-md-8">
+    <div class="col-md-6">
+      <%= form_for @stack do |f| %>
+        <%= f.label :template_id %>
+        <%= f.collection_select(:template_id, @templates, :id, :template_name, class: "form-control") %>
+        <%= f.label :stack_name %>
         <%= f.text_field :stack_name, class: "form-control" %>
-      </div>
-      <div class="col-md-4">
         <%= f.submit "Launch Environment", class: "btn btn-success" %>
-      </div>
-      <div class="col-md-4">
         <% if !flash[:danger].nil? %>
           <% flash[:danger].each do |message| %>
             <p class="text-danger"><%= message %></p>
           <% end %>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 

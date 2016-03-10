@@ -109,7 +109,7 @@ class StacksController < ApplicationController
 
 
   def stack_params
-    params.require(:stack).permit(:stack_name)
+    params.require(:stack).permit(:stack_name,:template_id)
   end
   
   def new_client

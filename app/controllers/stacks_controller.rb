@@ -17,9 +17,7 @@ class StacksController < ApplicationController
 
   def new
     @title = "Create New Stack"
-    cloudformation = new_client
-    resp = cloudformation.estimate_template_cost(template_url: Account.all[0].template_url)
-    @cost = resp.url
+    @templates = Template.all
     @stack = @current_user.stacks.new
   end
 
