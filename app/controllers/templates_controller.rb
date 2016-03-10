@@ -5,10 +5,17 @@ class TemplatesController < ApplicationController
   end
 
   def new
-
+    @template = Template.new
+    @title = "Add a new CloudFormation template"
   end
 
   def create
+    @template = Template.new(template_params)
+    if @template.save
+      redirect_to templates_path
+    else
+      flash[:danger] = @template.errors.full_messages
+    end
 
   end
 

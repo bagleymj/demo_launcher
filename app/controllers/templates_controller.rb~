@@ -1,10 +1,12 @@
 class TemplatesController < ApplicationController
   def index
     @templates = Template.all
+    @title = "Template List"
   end
 
   def new
-
+    @template = Template.new
+    @title = "Add a new CloudFormation template"
   end
 
   def create
