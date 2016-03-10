@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <tr>
+        <th>
+          Template Name
+        </th>
+        <th>
+          Template URL
+        </th>
+      </tr>
+      <% @templates.each do |template| %>
+        <tr>
+          <td>
+            <%= template.template_name %>
+          </td>
+          <td>
+            <%= template.template_url %>
+          </td>
+        </tr>
+      <% end %>
+
+    </table>
+  </div>
+</div>

@@ -8,7 +8,7 @@
       Secret Access Key
     </th>
     <th>
-      Template URL
+      Region
     </th>
     <th>
       Actions
@@ -26,7 +26,7 @@
         <%= account.secret_access_key %>
       </td>
       <td>
-        <%= account.template_url %>
+        <%= account.region %>
       </td>
       <td>
         <%= link_to "Update", edit_account_path(account.id) %>

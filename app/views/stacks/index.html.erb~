@@ -68,6 +68,8 @@
               <div style="width:auto; float:left">
                 <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
               </div>
+            <% else  %>
+              --loading--
             <% end %>
             </div>
           </td>

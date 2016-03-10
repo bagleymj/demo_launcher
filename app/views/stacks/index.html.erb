@@ -5,6 +5,9 @@
         <th>
           Stack Name
         </th>
+        <th>
+          Stack Template
+        </th>
         <% if is_admin? %>
           <th>
             User
@@ -34,6 +37,9 @@
             <% else %>
               <%= stack.stack_name %>
             <% end %>
+          </td>
+          <td>
+            <%= stack.template.template_name %>
           </td>
           <% if is_admin? %>
             <td>

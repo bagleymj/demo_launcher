@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
-  before_filter :require_login, :require_admin, :require_accounts
+  before_filter :set_header, :require_login, :require_admin, :require_accounts
+
 
   private
 
@@ -25,6 +26,10 @@ class ApplicationController < ActionController::Base
         redirect_to new_account_path
         flash[:banner] = "It looks like it's your first time here.  Please set up an AWS account to get started."
       end
+    end
+
+    def set_header
+      @header_items = ['Stacks','Accounts','Templates','Users']
     end
 
 

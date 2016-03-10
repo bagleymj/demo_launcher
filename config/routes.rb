@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :accounts
   resources :stacks
   resources :users
+  resources :templates
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'

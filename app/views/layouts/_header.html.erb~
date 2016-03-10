@@ -4,6 +4,7 @@
       <a class="navbar-brand">StackMan</a>
     </div>
     <div class="collapse navbar-collapse">
+      <% if is_admin? %>
       <ul class="nav navbar-nav">
         <% if params[:controller] == "stacks" %>
           <li class="active">
@@ -27,6 +28,7 @@
           <%= link_to "Users", users_path %>
         </li>
       </ul>
+      <% end %>
       <p class="navbar-text navbar-right">Welcome, <%= @current_user.display_name %></p>
     </div>
   </div>

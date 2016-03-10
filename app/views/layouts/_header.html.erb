@@ -6,27 +6,15 @@
     <div class="collapse navbar-collapse">
       <% if is_admin? %>
       <ul class="nav navbar-nav">
-        <% if params[:controller] == "stacks" %>
-          <li class="active">
-        <% else %>
-          <li>
+        <% @header_items.each do |item| %>
+          <% if params[:controller] == item.downcase %>
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+          <%= link_to item, :controller => item.downcase, :action => "index" %>
+          </li>
         <% end %>
-          <%= link_to "Stacks", stacks_path %>
-        </li>
-        <% if params[:controller] == "accounts" %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-          <%= link_to "Templates", accounts_path %>
-        </li>
-        <% if params[:controller] == "users" %>
-          <li class="active">
-        <% else %>
-          <li>
-        <% end %>
-          <%= link_to "Users", users_path %>
-        </li>
       </ul>
       <% end %>
       <p class="navbar-text navbar-right">Welcome, <%= @current_user.display_name %></p>
