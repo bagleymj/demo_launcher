@@ -11,6 +11,8 @@ class TemplatesController < ApplicationController
 
   def create
     @template = Template.new(template_params)
+    #validate template
+    #Add as a before_save method?
     if @template.save
       redirect_to templates_path
     else
