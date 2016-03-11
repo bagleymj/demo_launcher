@@ -1,5 +1,0 @@
-class RemoveTemplateUrlFromAccount < ActiveRecord::Migration
-  def change
-    remove_column :account, :template_url
-  end
-end

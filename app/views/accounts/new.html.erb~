@@ -1,6 +1,0 @@
-<h1>Add account details</h2>
-<div>
-  <%= form_for @account do |f| %>
-    <%= yield 'form', :f => f %>
-  <% end %>
-</div>
