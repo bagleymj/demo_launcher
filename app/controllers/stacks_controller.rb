@@ -73,6 +73,7 @@ class StacksController < ApplicationController
 
 
   def destroy
+    #flash[:progress] = "Deleting Instances. This will take a few moments"
     @stack = Stack.find(params[:id])
     stack_name = @stack.stack_name
     cloudformation = Account.cf_client
@@ -165,6 +166,7 @@ class StacksController < ApplicationController
   end
 
   def start_instances
+    #flash[:progress] = "Starting Instances. This will take several minutes."
     ec2 = Account.ec2_client
     stack = Stack.find(params[:id])
     instance_resources = get_instance_resources(stack.stack_name)
