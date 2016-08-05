@@ -154,6 +154,7 @@ class StacksController < ApplicationController
     return instance_ids
   end
 
+
   def stop_instances
     ec2 = Account.ec2_client
     stack = Stack.find(params[:id])
@@ -165,8 +166,26 @@ class StacksController < ApplicationController
 
   def start_instances
     ec2 = Account.ec2_client
-    stack = Stack.find(params[:id])
+    stack = Stack.find(parsams[:id])
     instance_resources = get_instance_resources(stack.stack_name)
+    #Start Domain Controller
+    domain_controller = instance_resources.select{
+      |resource| resource.logical_resource_id == "dcInstance"
+    }[0]
+    domain_controller_id = domain_controller.physical_resource_id
+    ec2.start_instances(instance_ids: [domain_controller_id])
+    instance_resources.delete(domain_controller)
+    #Wait
+    sleep(1.minutes)
+    #Start SX.e Server
+    sxe_server = instance_resources.select{
+      |resource| resource.logical_resource_id == "sxeInstance"
+    }[0]
+    sxe_server_id = sxe_server.physical_resource_id
+    ec2.start_instances(instance_ids: [sxe_server_id])
+    instance_resources.delete(sxe_server)
+    sleep(1.minutes)
+    #Start Everything Else
     instance_ids = get_instance_ids(instance_resources)
     ec2.start_instances(instance_ids: instance_ids)
     redirect_to stacks_path
