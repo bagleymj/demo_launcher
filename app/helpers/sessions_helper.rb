@@ -17,6 +17,12 @@ module SessionsHelper
   end
 
   def is_admin?
-    current_user.admin
+    if logged_in?
+      current_user.admin
+    end
+  end
+
+  def first_run?
+    Account.all.empty?
   end
 end

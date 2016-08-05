@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  skip_before_filter :require_accounts, :only => :new
+  skip_before_filter :require_login, :only => :new
   def index
     @accounts = Account.all
 
