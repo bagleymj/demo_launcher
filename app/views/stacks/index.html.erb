@@ -63,7 +63,7 @@
             <% if stack_created?(stack.stack_name) %>
               <% if all_servers_not_started?(stack.stack_name) %>
                 <div style="width:auto; float:left">
-                  <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success' %>
+                  <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success', :data => {toggle: "modal", target:"#loadingBar"} %>
                 </div>
               <% end %>
               <% if servers_running?(stack.stack_name) %>
