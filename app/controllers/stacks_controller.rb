@@ -166,7 +166,7 @@ class StacksController < ApplicationController
 
   def start_instances
     ec2 = Account.ec2_client
-    stack = Stack.find(parsams[:id])
+    stack = Stack.find(params[:id])
     instance_resources = get_instance_resources(stack.stack_name)
     #Start Domain Controller
     domain_controller = instance_resources.select{
