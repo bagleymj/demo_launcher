@@ -186,7 +186,7 @@ class StacksController < ApplicationController
     sxe_server_id = sxe_server.physical_resource_id
     ec2.start_instances(instance_ids: [sxe_server_id])
     instance_resources.delete(sxe_server)
-    sleep(2.minutes)
+    sleep(3.minutes)
     #Start Everything Else
     instance_ids = get_instance_ids(instance_resources)
     ec2.start_instances(instance_ids: instance_ids)

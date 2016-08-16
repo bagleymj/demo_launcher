@@ -71,9 +71,11 @@
                   <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning' %>
                 </div>
               <% end %>
-              <div style="width:auto; float:left">
-                <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
-              </div>
+              <% if is_admin? %>
+                <div style="width:auto; float:left">
+                  <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
+                </div>
+              <% end %>
             <% else  %>
               --loading--
             <% end %>
@@ -82,5 +84,7 @@
         </tr>
       <% end %>
     </table>
-    <%= button_to "Create New Stack", new_stack_path, :method => :get, class: 'btn btn-success' %>
-    </div>
+    <% if is_admin? %>
+      <%= button_to "Create New Stack", new_stack_path, :method => :get, class: 'btn btn-success' %>
+    <% end %>
+</div>
