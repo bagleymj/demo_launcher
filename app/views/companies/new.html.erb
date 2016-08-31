@@ -1,0 +1,9 @@
+<div class="row">
+  <div class = "col-md-6">
+    <%= form_for @company do |f| %>
+      <%= f.label :company_name %>
+      <%= f.text_field :company_name, class: "form-control" %>
+      <%= f.submit "Create Company", class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>

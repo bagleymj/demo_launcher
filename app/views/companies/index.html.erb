@@ -1,14 +1,17 @@
-<table>
-  <tr>
-    <th>
-      Company Name
-    </th>
-  </tr>
-  <% @companies.each do |company| %>
+<div class="row">
+  <table class="table table-striped">
     <tr>
-      <td>
-        <%= company.company_name %>
-      </td>
+      <th>
+        Company Name
+      </th>
     </tr>
-  <% end %>
-</table>
+    <% @companies.each do |company| %>
+      <tr>
+        <td>
+          <%= company.company_name %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= link_to "Create New Company", :action => :new %>
+</div>
