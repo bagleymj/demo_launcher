@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def new
     @title = "New User"
     @user = User.new
-
+    @companies = Company.all
   end
 
 
@@ -27,6 +27,7 @@ class UsersController < ApplicationController
   def edit
     @title = "Edit User"
     @user = User.find(params[:id])
+    @companies = Company.all
   end
 
   def update
@@ -54,7 +55,7 @@ class UsersController < ApplicationController
   
 
   def user_params
-    params.require(:user).permit(:username, :display_name, :company_name, :password, :password_confirmation, :admin)
+    params.require(:user).permit(:username, :display_name, :company_id, :password, :password_confirmation, :admin)
 
   end
 end
