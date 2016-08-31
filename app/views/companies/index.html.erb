@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>
+      Company Name
+    </th>
+  </tr>
+  <% @companies.each do |company| %>
+    <tr>
+      <td>
+        <%= company.company_name %>
+      </td>
+    </tr>
+  <% end %>
+</table>

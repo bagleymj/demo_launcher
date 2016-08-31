@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :stacks
   resources :users
   resources :templates
+  resources :companies
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'

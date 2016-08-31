@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_header
-      @header_items = ['Stacks','Accounts','Templates','Users']
+      @header_items = ['Stacks','Accounts','Templates','Users','Companies']
     end
 
 
