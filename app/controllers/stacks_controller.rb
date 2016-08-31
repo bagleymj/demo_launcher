@@ -6,7 +6,13 @@ class StacksController < ApplicationController
     if is_admin?
       @stacks = Stack.all
     else
-      @stacks = @current_user.stacks.all
+      stacks = Stack.all
+      @stacks = []
+      stacks.each do |stack|
+        if stack.user.company_name == @current_user.company_name
+          @stacks << stack
+        end
+      end
     end
 
     @title = "AWS Stacks"
@@ -192,6 +198,4 @@ class StacksController < ApplicationController
     ec2.start_instances(instance_ids: instance_ids)
     redirect_to stacks_path
   end
-
-
 end
