@@ -6,6 +6,9 @@
                                 {class: "form-control"}) %>
         <%= f.label :stack_name %>
         <%= f.text_field :stack_name, class: "form-control" %>
+        <%= f.label :company_id %>
+        <%= f.collection_select(:company_id, @companies, :id, :company_name, {},
+                                {class: "form-control"}) %>
         <%= f.submit "Launch Environment", class: "btn btn-success" %>
         <% if !flash[:danger].nil? %>
           <% flash[:danger].each do |message| %>

@@ -18,14 +18,16 @@ class StacksController < ApplicationController
   def new
     @title = "Create New Stack"
     @templates = Template.all
-    @stack = @current_user.stacks.new
+    @companies = Company.all
+    @stack = Stack.new
   end
 
 
   def create
-    @stack = @current_user.stacks.new(stack_params)
+    @stack = Stack.new(stack_params)
     stack_name = @stack.stack_name
     template_url = @stack.template.template_url
+    company_name = @stack.company.company_name
     cloudformation = Account.cf_client
     if @stack.save
       new_stack = cloudformation.create_stack(stack_name: stack_name, 
@@ -33,7 +35,7 @@ class StacksController < ApplicationController
                                               tags: [
                                                 {
                                                   key: "Company",
-                                                  value: @current_user.company_name
+                                                  value: company_name
                                                 }
                                               ]
                                               )
@@ -108,7 +110,7 @@ class StacksController < ApplicationController
 
 
   def stack_params
-    params.require(:stack).permit(:stack_name,:template_id)
+    params.require(:stack).permit(:stack_name,:template_id,:company_id)
   end
 
 
