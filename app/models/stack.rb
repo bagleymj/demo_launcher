@@ -6,6 +6,6 @@ class Stack < ActiveRecord::Base
       with: /\A[a-zA-Z]\w+\z/, 
       message: "Must begin with alpha character and contain only letters, numbers, and dashes" 
     }
-  belongs_to :user
+  belongs_to :company
   belongs_to :template
 end

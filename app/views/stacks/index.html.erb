@@ -10,9 +10,6 @@
         </th>
         <% if is_admin? %>
           <th>
-            User
-          </th>
-          <th>
             Company
           </th>
         <% end %>
@@ -43,10 +40,7 @@
           </td>
           <% if is_admin? %>
             <td>
-              <%= stack.user.display_name %>
-            </td>
-            <td>
-              <%= stack.user.company_name %>
+              <%= stack.company.company_name %>
             </td>
           <% end %>
           <td>

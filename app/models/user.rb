@@ -1,8 +1,5 @@
 class User < ActiveRecord::Base
   REGEX = /\A[a-zA-Z]\w+\z/
-  validates :company_name, 
-    presence: true,
-    format: {:with => REGEX}
 
   validates :username,
     presence: true,
@@ -17,5 +14,5 @@ class User < ActiveRecord::Base
 
   has_secure_password
   
-  has_many :stacks
+  belongs_to :company
 end

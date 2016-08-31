@@ -6,13 +6,7 @@ class StacksController < ApplicationController
     if is_admin?
       @stacks = Stack.all
     else
-      stacks = Stack.all
-      @stacks = []
-      stacks.each do |stack|
-        if stack.user.company_name == @current_user.company_name
-          @stacks << stack
-        end
-      end
+      @stacks = @current_user.company.stacks
     end
 
     @title = "AWS Stacks"
