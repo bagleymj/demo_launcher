@@ -5,10 +5,10 @@
         <th>
           Stack Name
         </th>
-        <th>
-          Stack Template
-        </th>
         <% if is_admin? %>
+          <th>
+            Stack Template
+          </th>
           <th>
             Company
           </th>
@@ -19,9 +19,11 @@
         <th>
           Server State
         </th>
-        <th>
-          Stack Status
-        </th>
+        <% if is_admin? %>
+          <th>
+            Stack Status
+          </th>
+        <% end %>
         <th>
           Actions
         </th>
@@ -35,10 +37,10 @@
               <%= stack.stack_name %>
             <% end %>
           </td>
-          <td>
-            <%= stack.template.template_name %>
-          </td>
           <% if is_admin? %>
+            <td>
+              <%= stack.template.template_name %>
+            </td>
             <td>
               <%= stack.company.company_name %>
             </td>
@@ -49,9 +51,11 @@
           <td>
             <%= get_pretty_server_state(stack.stack_name) %>
           </td>
-          <td>
-            <%= get_stack_status(stack.stack_name) %> 
-          </td>
+          <% if is_admin? %>
+            <td>
+              <%= get_stack_status(stack.stack_name) %> 
+            </td>
+          <% end %>
           <td>
             <div class="btn-group">
             <% if stack_created?(stack.stack_name) %>
