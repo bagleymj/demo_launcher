@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :require_admin
+  skip_before_filter :require_admin, :only => :edit
 
   def index
     @title = "User List"
