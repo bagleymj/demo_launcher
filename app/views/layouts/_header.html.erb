@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand">E&A Demo Launcher</a>
+      <!--<a class="navbar-brand">E&A Demo Launcher</a>-->
+      <%= link_to "E&A Demo Launcher", stacks_path, :class => "navbar-brand" %>
     </div>
     <div class="collapse navbar-collapse">
       <% if is_admin? %>
@@ -18,7 +19,7 @@
         </ul>
       <% end %>
       <% if logged_in? %>
-        <p class="navbar-text navbar-right">Welcome, <%= @current_user.display_name %>|<%= link_to "Account Settings", edit_user_path(@current_user.id) %>|<%= link_to "Log Out", logout_path, method: 'DELETE' %></p>
+        <p class="navbar-text navbar-right">Welcome, <%= @current_user.display_name %> | <%= link_to "Account Settings", edit_user_path(@current_user.id) %> | <%= link_to "Log Out", logout_path, method: 'DELETE' %></p>
       <% end %>
     </div>
   </div>

@@ -18,7 +18,7 @@
         <%= f.label :admin %><br />
         <%= f.check_box :admin %><br />
       <% end %>
-      <%= f.submit "Create User", class: "btn btn-primary" %>
+      <%= f.submit "Save User", class: "btn btn-primary" %>
       <% if !flash[:danger].nil? %>
         <% flash[:danger].each do |message| %>
           <p class="text-danger"><%= message %>
