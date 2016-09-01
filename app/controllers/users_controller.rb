@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :require_admin
 
-
   def index
     @title = "User List"
     @users = User.all
@@ -29,7 +28,11 @@ class UsersController < ApplicationController
 
   def edit
     @title = "Edit User"
-    @user = User.find(params[:id])
+    if is_admin?
+      @user = User.find(params[:id])
+    else
+      @user = User.find(@current_user.id)
+    end
     @companies = Company.all
   end
 
@@ -54,6 +57,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     end
   end
+
 
   
 
