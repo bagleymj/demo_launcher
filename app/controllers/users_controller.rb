@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  skip_before_filter :require_admin
+
+
   def index
     @title = "User List"
     @users = User.all

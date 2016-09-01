@@ -18,7 +18,7 @@
         </ul>
       <% end %>
       <% if logged_in? %>
-        <p class="navbar-text navbar-right">Welcome, <%= @current_user.display_name %>|<%= link_to "Log Out", logout_path, method: 'DELETE' %></p>
+        <p class="navbar-text navbar-right">Welcome, <%= @current_user.display_name %>|<%= link_to "Account Settings", edit_user_path(@current_user.id) %>|<%= link_to "Log Out", logout_path, method: 'DELETE' %></p>
       <% end %>
     </div>
   </div>

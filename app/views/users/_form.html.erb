@@ -1,17 +1,23 @@
     <div class="col-md-6 col-md-offset-3">
-      <%= f.label :username %>
-      <%= f.text_field :username, class: "form-control" %>
+      <% if is_admin? %>
+        <%= f.label :username %>
+        <%= f.text_field :username, class: "form-control" %>
+      <% end %>
       <%= f.label :display_name %>
       <%= f.text_field :display_name, class: "form-control" %>
-      <%= f.label :company_id %>
-      <%= f.collection_select(:company_id, @companies, :id, :company_name, {},
+      <% if is_admin? %>
+        <%= f.label :company_id %>
+        <%= f.collection_select(:company_id, @companies, :id, :company_name, {},
                               {class: "form-control"})%>
+      <% end %>
       <%= f.label :password %>
       <%= f.password_field :password, class: "form-control" %>
       <%= f.label :password_confirmation %>        
       <%= f.password_field :password_confirmation, class: "form-control" %>
-      <%= f.label :admin %><br />
-      <%= f.check_box :admin %><br />
+      <% if is_admin? %>
+        <%= f.label :admin %><br />
+        <%= f.check_box :admin %><br />
+      <% end %>
       <%= f.submit "Create User", class: "btn btn-primary" %>
       <% if !flash[:danger].nil? %>
         <% flash[:danger].each do |message| %>
