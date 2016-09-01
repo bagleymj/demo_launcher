@@ -35,6 +35,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'twitter-bootstrap-rails'
 
+gem 'yaml_db'
+
 
 
 group :development, :test do
