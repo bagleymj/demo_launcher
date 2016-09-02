@@ -14,7 +14,7 @@
           </th>
         <% end %>
         <th>
-          Public IP
+          Remote Desktop IP
         </th>
         <th>
           Server State
@@ -66,7 +66,7 @@
               <% end %>
               <% if servers_running?(stack.stack_name) %>
                 <div style="width:auto; float:left">
-                  <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning' %>
+                  <%= button_to "Stop", {:action => 'stop_instances', :id => stack.id}, :method => :post, class: 'btn btn-warning', :data => {toggle: "modal", target: "#loadingBar"}  %>
                 </div>
               <% end %>
               <% if is_admin? %>

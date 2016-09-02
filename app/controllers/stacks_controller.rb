@@ -164,6 +164,7 @@ class StacksController < ApplicationController
     instance_resources = get_instance_resources(stack.stack_name)
     instance_ids = get_instance_ids(instance_resources)
     ec2.stop_instances(instance_ids: instance_ids, force: true)
+    sleep(5.seconds)
     redirect_to stacks_path
   end
 
