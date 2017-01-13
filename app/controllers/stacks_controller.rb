@@ -10,8 +10,6 @@ class StacksController < ApplicationController
     end
 
     @title = "AWS Stacks"
-    @cloudformation = Account.cf_client
-    @ec2 = Account.ec2_client
   end
 
 
