@@ -33,7 +33,7 @@ module StacksHelper
     return instance_ids
   end
 
-  def get_server_state(stack_name)
+  def count_running_instances(stack_name)
     instance_ids = get_instance_ids(stack_name)
     resp = @ec2.describe_instances(instance_ids: instance_ids)
     reservations = resp[0]
@@ -54,24 +54,24 @@ module StacksHelper
     return server_state
   end
 
-  def get_pretty_server_state(stack_name)
+  def get_pretty_instance_count(stack_name)
     if stack_created?(stack_name)
-      server_state = get_server_state(stack_name)
-      pretty_server_state = server_state[:running].to_s + " of " + server_state[:total].to_s + " running" 
+      instance_count = count_running_instances(stack_name)
+      pretty_instance_count = instance_count[:running].to_s + " of " + instance_count[:total].to_s + " running" 
     else
       pretty_server_state = "--loading--"
     end
-    return pretty_server_state
+    return pretty_instance_count
   end
   
   def all_servers_not_started?(stack_name)
-    server_state = get_server_state(stack_name)
-    server_state[:running] < server_state[:total]
+    instance_count = count_running_instances(stack_name)
+    instance_count[:running] < instance_count[:total]
   end
 
   def servers_running?(stack_name)
-    server_state = get_server_state(stack_name)
-    server_state[:running] > 0
+    instance_count = count_running_instances(stack_name)
+    instance_count[:running] > 0
   end
 
 #  def new_client
