@@ -9,8 +9,16 @@
     <tr>
       <td><%= instance.instance_name %></td>
       <td><%= instance.instance_id %></td>
-      <td><%= get_instance_state(instance.instance_id) %></td>
-      <td><%= link_to "Start", :url => "#" %></td>
+      <% instance_state = get_instance_state(instance.instance_id) %>
+      <td><%= instance_state %></td>
+      <td>
+        <% case instance_state %>
+        <% when "stopped" %>
+          <%= link_to "Start", :url => "#" %>
+        <% when "running" %>
+          <%= link_to "Stop", :url => "#" %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
