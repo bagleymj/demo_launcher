@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   post 'stacks/:id/stop_instances' => 'stacks#stop_instances'
   post 'stop_instances' => 'stacks#stop_instances'
   post 'stacks/:id/start_instances' => 'stacks#start_instances'
+  post 'instances/:id/stop_instance' => 'instances#stop_instance'
+  post 'instances/:id/start_instance' => 'instances#start_instance'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

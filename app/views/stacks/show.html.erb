@@ -14,9 +14,17 @@
       <td>
         <% case instance_state %>
         <% when "stopped" %>
-          <%= link_to "Start", :url => "#" %>
+          <%= button_to "Start", {:action => 'start_instance', 
+                                  :controller => :instances, 
+                                  :id => instance.id, :stack_id => @stack.id}, 
+                                  :method => :post, 
+                                  class: 'btn btn-success' %>
         <% when "running" %>
-          <%= link_to "Stop", :url => "#" %>
+          <%= button_to "Stop", {:action => 'stop_instance', 
+                                 :controller => :instances, 
+                                 :id => instance.id, :stack_id => @stack.id}, 
+                                 :method => :post, 
+                                 class: 'btn btn-danger' %>
         <% end %>
       </td>
     </tr>
