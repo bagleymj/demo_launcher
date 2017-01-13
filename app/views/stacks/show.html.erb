@@ -1,47 +1,15 @@
-<!--<table class="table table-striped">
-  <tr>
-    <th>
-      Logical Resource ID
-    </th>
-    <th>
-      Physical Resource ID
-    </th>
-    <th>
-      Resource Type
-    </th>
-  </tr>
-  <% @resources.each do |resource| %>
-    <tr>
-      <td>
-        <%= resource.logical_resource_id %>
-      </td>
-      <td>
-        <%= resource.physical_resource_id %>
-      </td>
-      <td>
-        <%= resource.resource_type %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-<h2>Volumes</h2>
-<% @standard_volumes.each do |volume| %>
-  <div>
-    <%= volume %>
-  </div>
-<%end%>-->
-
-
 <table class="table table-striped">
   <tr>
-    <th>Instance Name</th>
-    <th>Instance ID</th>
+    <th>Name</th>
+    <th>ID</th>
+    <th>State</th>
     <th>Actions</th>
   </tr>
   <% @stack.instances.each do |instance| %>
     <tr>
       <td><%= instance.instance_name %></td>
       <td><%= instance.instance_id %></td>
+      <td><%= get_instance_state(instance.instance_id) %></td>
       <td><%= link_to "Start", :url => "#" %></td>
     </tr>
   <% end %>

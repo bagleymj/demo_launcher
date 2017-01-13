@@ -1,4 +1,5 @@
 class StacksController < ApplicationController
+  include InstancesHelper
   skip_before_filter :require_admin
 
 
@@ -50,12 +51,8 @@ class StacksController < ApplicationController
 
   def show
     @stack = Stack.find(params[:id])
-    @title = "Resources for #{@stack.stack_name}"
-    stack_name = @stack.stack_name
-    cloudformation = Account.cf_client
-    resp = cloudformation.list_stack_resources(stack_name: stack_name)
-    @resources = resp[0]
-    @standard_volumes = get_volumes(stack_name, cloudformation)  
+    @title = "Instances for #{@stack.stack_name}"
+    @ec2 = Account.ec2_client
   end
 
 
