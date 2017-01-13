@@ -8,4 +8,5 @@ class Stack < ActiveRecord::Base
     }
   belongs_to :company
   belongs_to :template
+  has_many :instances
 end
