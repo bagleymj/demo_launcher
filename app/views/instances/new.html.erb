@@ -1,12 +1,33 @@
 <%= form_tag :action => :create do %>
-  <% @instance_list.each do |instance| %>
-    <div>
-      <%= check_box_tag("instances[]", instance[:id]) %><%= instance[:name] %>
-    </div>
+  <table class="table table-striped">
+    <thead>
+      <th>
+        Select
+      </th>
+      <th>
+        ID
+      </th>
+      <th>
+        Name
+      </th>
+    </thead>
+    <% @instance_list.each do |instance| %>
+      <tr>
+        <td>
+          <%= check_box_tag("instances[]", instance[:id]) %>
+        </td>
+        <td>
+          <%= instance[:id] %>
+        </td>
+        <td>
+          <%= instance[:name] %>
+        </td>
+      </tr>
   <% end %>
+  </table>
   <div>
     <%= hidden_field_tag(:stack_id, @stack.id) %>
   </div>
  
-  <%= submit_tag %>
+  <%= submit_tag "Add Instances", class: "btn btn-primary" %>
 <% end %>
