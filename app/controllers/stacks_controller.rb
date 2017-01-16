@@ -57,7 +57,9 @@ class StacksController < ApplicationController
 
 
   def edit
-
+    @stack = Stack.find(params[:id])
+    @title = "Edit boot order for #{@stack.stack_name}"
+    @ec2 = Account.ec2_client
   end
 
 

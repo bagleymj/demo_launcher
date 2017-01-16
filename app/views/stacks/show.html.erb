@@ -1,39 +1,11 @@
-<table class="table table-striped">
-  <thead>
-    <th>Name</th>
-    <th>ID</th>
-    <th>Boot Order</th>
-    <th>Delay</th>
-    <th>State</th>
-    <th>Actions</th>
-  </thead>
-  <% @stack.instances.each do |instance| %>
-    <tr>
-      <td><%= get_instance_name instance.instance_id %>
-      <td><%= instance.instance_id %></td>
-      <% instance_state = get_instance_state(instance.instance_id) %>
-      <td><%= instance.boot_order %></td>
-      <td><%= instance.delay %></td>
-      <td><%= instance_state %></td>
-      <td>
-        <% case instance_state %>
-        <% when "stopped" %>
-          <%= button_to "Start", {:action => 'start_instance', 
-                                  :controller => :instances, 
-                                  :id => instance.id, :stack_id => @stack.id}, 
-                                  :method => :post, 
-                                  class: 'btn btn-success' %>
-        <% when "running" %>
-          <%= button_to "Stop", {:action => 'stop_instance', 
-                                 :controller => :instances, 
-                                 :id => instance.id, :stack_id => @stack.id}, 
-                                 :method => :post, 
-                                 class: 'btn btn-danger' %>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-<%= link_to "Add Instance to Stack", {:controller => :instances, 
+<%= render 'instance_table' %>
+
+<div>
+  <%= link_to "Add Instance to Stack", {:controller => :instances, 
                                       :action => :new,
                                       :stack_id => @stack.id} %>
+</div>
+<div>
+  <%= link_to "Edit Boot Order", {:controller => :stacks, :action => :edit,
+                                      :stack_id => @stack.id} %>
+</div>
