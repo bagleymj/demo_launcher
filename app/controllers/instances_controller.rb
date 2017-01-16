@@ -11,13 +11,19 @@ class InstancesController < ApplicationController
     resp = ec2.describe_instances(filters:[{name: "tag:Company", 
                                            values:[company_name]}])
     reservations = resp[0]
+    saved_ids = []
+    Instance.all.each do |instance|
+      saved_ids << instance.instance_id
+    end
     @instance_list = []
     reservations.each do |reservation|
       reservation.instances.each do |instance|
-        tags = instance.tags
-        instance_name = tags.select {|tag| tag.key == 'Name'}[0].value
-        instance_entry = Hash[:id => instance.instance_id, :name => instance_name]
-        @instance_list << instance_entry
+        unless saved_ids.include? instance.instance_id
+          tags = instance.tags
+          instance_name = tags.select {|tag| tag.key == 'Name'}[0].value
+          instance_entry = Hash[:id => instance.instance_id, :name => instance_name]
+          @instance_list << instance_entry
+        end
       end
     end
   end
