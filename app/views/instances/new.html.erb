@@ -1,5 +1,12 @@
-<% @instance_names.each do |instance| %>
+<%= form_tag :action => :create do %>
+  <% @instance_list.each do |instance| %>
+    <div>
+      <%= check_box_tag("instances[]", instance[:id]) %><%= instance[:name] %>
+    </div>
+  <% end %>
   <div>
-    <%= instance %>
+    <%= hidden_field_tag(:stack_id, @stack.id) %>
   </div>
+ 
+  <%= submit_tag %>
 <% end %>
