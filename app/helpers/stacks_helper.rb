@@ -33,6 +33,15 @@ module StacksHelper
     return instance_ids
   end
 
+  def get_instance_name(instance_id)
+    resp = @ec2.describe_instances(instance_ids: [instance_id])
+    reservations = resp[0]
+    tags = reservations[0].instances[0].tags
+    tags.select {|tag| tag.key == 'Name'}[0].value
+  end
+
+
+
   def count_running_instances(stack_name)
     instance_ids = get_instance_ids(stack_name)
     resp = @ec2.describe_instances(instance_ids: instance_ids)

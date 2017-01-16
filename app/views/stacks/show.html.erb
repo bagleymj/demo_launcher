@@ -1,12 +1,13 @@
 <table class="table table-striped">
   <tr>
-    <!--<th>Name</th>-->
+    <th>Name</th>
     <th>ID</th>
     <th>State</th>
     <th>Actions</th>
   </tr>
   <% @stack.instances.each do |instance| %>
     <tr>
+      <td><%= get_instance_name instance.instance_id %>
       <td><%= instance.instance_id %></td>
       <% instance_state = get_instance_state(instance.instance_id) %>
       <td><%= instance_state %></td>
