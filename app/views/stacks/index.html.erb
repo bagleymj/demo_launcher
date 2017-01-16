@@ -1,7 +1,7 @@
   <%= render 'loading_bar' %> 
   <div class="row">
     <table class="table table-striped">
-      <tr>
+      <thead>
         <th>
           Stack Name
         </th>
@@ -27,7 +27,7 @@
         <th>
           Actions
         </th>
-      </tr>
+      </thead>
       <% @stacks.each do |stack| %>
         <tr>
           <td>
