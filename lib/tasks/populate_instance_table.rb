@@ -7,6 +7,7 @@ ec2 = Account.ec2_client
 stacks = Stack.all
 
 stacks.each do |stack|
+  boot_order = 0
   resp_cf = cloudformation.list_stack_resources({stack_name: stack.stack_name})
   resources = resp_cf[0]
   instance_resources = resources.select{|resource| resource.resource_type == 'AWS::EC2::Instance'}
@@ -18,14 +19,17 @@ stacks.each do |stack|
   reservations =  resp_ec2[0]
   reservations.each do |reservation|
     reservation.instances.each do |instance|
+      boot_order += 1
       tags = instance.tags
       instance_name = tags.select{|tag| tag.key == 'Name'}[0].value
       new_instance = Instance.new
       new_instance.instance_id = instance.instance_id
-      new_instance.instance_name = instance_name
       new_instance.stack_id = stack.id
+      new_instance.boot_order = boot_order
+      new_instance.delay = 0
       new_instance.save
-      puts "#{instance_name}(#{instance.instance_id}) successfully saved for #{stack.stack_name}"
+      puts "#{instance_name}(#{instance.instance_id}) 
+            successfully saved for #{stack.stack_name}"
     end
   end
 

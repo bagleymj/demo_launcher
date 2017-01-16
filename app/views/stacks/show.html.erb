@@ -2,6 +2,8 @@
   <thead>
     <th>Name</th>
     <th>ID</th>
+    <th>Boot Order</th>
+    <th>Delay</th>
     <th>State</th>
     <th>Actions</th>
   </thead>
@@ -10,6 +12,8 @@
       <td><%= get_instance_name instance.instance_id %>
       <td><%= instance.instance_id %></td>
       <% instance_state = get_instance_state(instance.instance_id) %>
+      <td><%= instance.boot_order %></td>
+      <td><%= instance.delay %></td>
       <td><%= instance_state %></td>
       <td>
         <% case instance_state %>
