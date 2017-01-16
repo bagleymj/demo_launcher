@@ -5,10 +5,10 @@
         Select
       </th>
       <th>
-        ID
+        Name
       </th>
       <th>
-        Name
+        ID
       </th>
     </thead>
     <% @instance_list.each do |instance| %>
@@ -17,10 +17,10 @@
           <%= check_box_tag("instances[]", instance[:id]) %>
         </td>
         <td>
-          <%= instance[:id] %>
+          <%= instance[:name] %>
         </td>
         <td>
-          <%= instance[:name] %>
+          <%= instance[:id] %>
         </td>
       </tr>
   <% end %>
