@@ -62,6 +62,24 @@ class StacksController < ApplicationController
     @ec2 = Account.ec2_client
   end
 
+  def modify_boot_order
+    stack = Stack.find(params[:stack_id])
+    instance = Instance.find(params[:instance_id])
+    direction = params[:direction]
+    current_boot_order = instance.boot_order
+    new_boot_order = nil
+    if direction == "up"
+      new_boot_order = current_boot_order - 1
+    end
+    if direction == "down"
+      new_boot_order = current_boot_order + 1
+    end
+    bumped_instance = stack.instances.select{|found_instance|found_instance.boot_order == new_boot_order}[0]
+    bumped_instance.update_attributes(:boot_order => current_boot_order)
+    instance.update_attributes(:boot_order => new_boot_order)
+    redirect_to edit_stack_path :id => stack.id
+  end
+
 
   def update
 

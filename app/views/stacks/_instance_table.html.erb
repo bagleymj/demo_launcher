@@ -11,18 +11,30 @@
     <th>Actions</th>
   </thead>
   <% list_length = @stack.instances.length %>
-  <% @stack.instances.each do |instance| %>
+  <% @stack.instances.order(:boot_order).each do |instance| %>
     <tr>
       <td><%= get_instance_name instance.instance_id %>
       <td><%= instance.instance_id %></td>
       <% instance_state = get_instance_state(instance.instance_id) %>
       <td>
         <%= instance.boot_order %>
-        <% if instance.boot_order != 1 %>
-          <i class="fa fa-arrow-up"></i>
-        <% end %>
-        <% if instance.boot_order != list_length %>
-          <i class="fa fa-arrow-down"></i>
+        <% if params[:action] == 'edit' %>
+          <% if instance.boot_order != 1 %>
+            <%= link_to '<i class="fa fa-arrow-up"></i>'.html_safe, {
+                               :action => :modify_boot_order, 
+                               :stack_id => @stack.id,
+                               :instance_id => instance.id,
+                               :direction => 'up'},
+                               :method => :post %>
+          <% end %>
+          <% if instance.boot_order != list_length %>
+            <%= link_to '<i class="fa fa-arrow-down"></i>'.html_safe, {
+                              :action => :modify_boot_order,
+                              :stack_id => @stack.id,
+                              :instance_id => instance.id,
+                              :direction => 'down'},
+                              :method => :post %>
+          <% end %>
         <% end %>
       </td>
       <td><%= instance.delay %></td>
