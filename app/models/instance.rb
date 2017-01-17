@@ -12,6 +12,9 @@ class Instance < ActiveRecord::Base
 
   def set_defaults
     stack = Stack.find(self.stack_id)
+    if self.delay.nil?
+      self.delay = 0
+    end
     if self.id ==nil
       self.boot_order = stack.instances.length + 1
       self.delay = 0

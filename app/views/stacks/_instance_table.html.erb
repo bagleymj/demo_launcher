@@ -3,7 +3,7 @@
     <th>Name</th>
     <th>ID</th>
     <th>Boot Order</th>
-    <th>Delay</th>
+    <th>Delay after boot<br />(seconds)</th>
     <th>State</th>
     <th>Actions</th>
   </thead>
@@ -40,8 +40,10 @@
                                           :action => :update, 
                                           :id => instance.id,
                                           :stack_id => @stack.id} do |f| %>
-            <%= f.text_field :delay %>
-            <%= f.submit %>
+            <div class="col-lg-2">
+              <%= f.text_field :delay, class: "form-control" %>
+            </div>
+            <%= f.submit "Update", class: "btn btn-primary" %>
           <% end %>
         <% else %>
           <%= instance.delay %>
