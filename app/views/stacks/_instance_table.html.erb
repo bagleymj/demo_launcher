@@ -10,12 +10,21 @@
     <th>State</th>
     <th>Actions</th>
   </thead>
+  <% list_length = @stack.instances.length %>
   <% @stack.instances.each do |instance| %>
     <tr>
       <td><%= get_instance_name instance.instance_id %>
       <td><%= instance.instance_id %></td>
       <% instance_state = get_instance_state(instance.instance_id) %>
-      <td><%= instance.boot_order %></td>
+      <td>
+        <%= instance.boot_order %>
+        <% if instance.boot_order != 1 %>
+          <i class="fa fa-arrow-up"></i>
+        <% end %>
+        <% if instance.boot_order != list_length %>
+          <i class="fa fa-arrow-down"></i>
+        <% end %>
+      </td>
       <td><%= instance.delay %></td>
       <td><%= instance_state %></td>
       <td>
