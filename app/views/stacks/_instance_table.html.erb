@@ -1,6 +1,3 @@
-<% if params[:action] == 'edit' %>
-  <!-- Create a Form -->
-<% end %>
 <table class="table table-striped">
   <thead>
     <th>Name</th>
@@ -37,7 +34,19 @@
           <% end %>
         <% end %>
       </td>
-      <td><%= instance.delay %></td>
+      <td>
+        <% if params[:action] == 'edit' %>
+          <%= form_for instance, :url => {:controller => :instances, 
+                                          :action => :update, 
+                                          :id => instance.id,
+                                          :stack_id => @stack.id} do |f| %>
+            <%= f.text_field :delay %>
+            <%= f.submit %>
+          <% end %>
+        <% else %>
+          <%= instance.delay %>
+        <% end %>
+      </td>
       <td><%= instance_state %></td>
       <td>
         <% case instance_state %>

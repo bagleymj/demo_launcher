@@ -39,6 +39,12 @@ class InstancesController < ApplicationController
     redirect_to stack_path stack_id
   end
 
+  def update
+    instance = Instance.find(params[:id])
+    instance.update_attributes(instance_params)
+    redirect_to edit_stack_path :id => params[:stack_id]
+  end
+
   def stop_instance
     ec2 = Account.ec2_client
     instance = Instance.find(params[:id])
@@ -51,5 +57,9 @@ class InstancesController < ApplicationController
     instance = Instance.find(params[:id])
     ec2.start_instances(instance_ids: [instance.instance_id])
     redirect_to stack_url :id => params[:stack_id]
+  end
+
+  def instance_params
+    params.require(:instance).permit(:delay)
   end
 end
