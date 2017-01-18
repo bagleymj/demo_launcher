@@ -2,6 +2,7 @@
   <thead>
     <th>Name</th>
     <th>ID</th>
+    <th>IP Address</th>
     <th>Boot Order</th>
     <th>Delay after boot<br />(minutes)</th>
     <th>State</th>
@@ -10,9 +11,9 @@
   <% list_length = @stack.instances.length %>
   <% @stack.instances.order(:boot_order).each do |instance| %>
     <tr>
-      <td><%= get_instance_name instance.instance_id %>
+      <td><%= get_instance_name(instance.instance_id)%>
       <td><%= instance.instance_id %></td>
-      <% instance_state = get_instance_state(instance.instance_id) %>
+      <td><%= get_ip_address(instance.instance_id)%></td>
       <td>
         <%= instance.boot_order %>
         <% if params[:action] == 'edit' %>
@@ -49,6 +50,7 @@
           <%= instance.delay %>
         <% end %>
       </td>
+      <% instance_state = get_instance_state(instance.instance_id) %>
       <td><%= instance_state %></td>
       <td>
         <% case instance_state %>

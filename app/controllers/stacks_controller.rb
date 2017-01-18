@@ -18,7 +18,9 @@ class StacksController < ApplicationController
 
   def new
     @title = "Create New Stack"
+    manual_template = Template.new(:template_name => "Manual - No Template")
     @templates = Template.all
+    @templates.unshift(manual_template)
     @companies = Company.all
     @stack = Stack.new
   end
@@ -26,21 +28,20 @@ class StacksController < ApplicationController
 
   def create
     @stack = Stack.new(stack_params)
-    stack_name = @stack.stack_name
-    template_url = @stack.template.template_url
-    company_name = @stack.company.company_name
-    cloudformation = Account.cf_client
     if @stack.save
-      new_stack = cloudformation.create_stack(stack_name: stack_name, 
-                                              template_url: template_url,
-                                              tags: [
-                                                {
-                                                  key: "Company",
-                                                  value: company_name
-                                                }
-                                              ]
-                                              )
-      @stack.stack_id = new_stack[:stack_id]
+      unless @stack.template_id.nil?
+        cloudformation = Account.cf_client
+        new_stack = cloudformation.create_stack(stack_name: @stack.stack_name, 
+                                                template_url: @stack.template.template_url,
+                                                tags: [
+                                                  {
+                                                    key: "Company",
+                                                    value: @stack.company.company_name
+                                                  }
+                                                ]
+                                                )
+        @stack.stack_id = new_stack[:stack_id]
+      end
       redirect_to stacks_path
     else
       flash[:danger] = @stack.errors.full_messages 

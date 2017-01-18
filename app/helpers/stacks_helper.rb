@@ -15,19 +15,25 @@ module StacksHelper
     tags.select {|tag| tag.key == 'Name'}[0].value
   end
 
-
+  def get_ip_address(instance_id)
+    resp = @ec2.describe_instances(instance_ids: [instance_id])
+    reservations = resp[0]
+    reservations[0].instances[0].public_ip_address
+  end
 
   def count_running_instances(stack_id)
     instance_ids = get_instance_ids(stack_id)
-    resp = @ec2.describe_instances(instance_ids: instance_ids)
-    reservations = resp[0]
     instance_count = instance_ids.length 
     running_count = 0
-    instances = []
-    reservations.each do |reservation|
-      reservation.instances.each do |instance|
-        if instance.state.name != "stopped"&&"terminated"
-          running_count += 1
+    if instance_count > 0
+      resp = @ec2.describe_instances(instance_ids: instance_ids)
+      reservations = resp[0]
+      instances = []
+      reservations.each do |reservation|
+        reservation.instances.each do |instance|
+          if instance.state.name != "stopped"&&"terminated"
+            running_count += 1
+          end
         end
       end
     end
