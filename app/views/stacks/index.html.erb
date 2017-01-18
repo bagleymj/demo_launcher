@@ -7,18 +7,9 @@
         </th>
         <% if is_admin? %>
           <th>
-            Stack Template
-          </th>
-          <th>
             Company
           </th>
         <% end %>
-        <th>
-          Remote Desktop IP
-        </th>
-        <th>
-          Server State
-        </th>
         <% if is_admin? %>
           <th>
             Stack Status
@@ -31,16 +22,9 @@
       <% @stacks.each do |stack| %>
         <tr>
           <td>
-            <% if get_stack_status(stack.stack_name) == "CREATE_COMPLETE" %>
-              <%= link_to stack.stack_name, stack_path(stack.id) %>
-            <% else %>
-              <%= stack.stack_name %>
-            <% end %>
+            <%= link_to stack.stack_name, stack_path(stack.id) %>
           </td>
           <% if is_admin? %>
-            <td>
-              <%= stack.template.template_name %>
-            </td>
             <td>
               <%= stack.company.company_name %>
             </td>
@@ -48,14 +32,8 @@
           <td>
             <%= get_pretty_instance_count(stack.id) %>
           </td>
-          <% if is_admin? %>
-            <td>
-              <%= get_stack_status(stack.stack_name) %> 
-            </td>
-          <% end %>
           <td>
             <div class="btn-group">
-            <% if stack_created?(stack.stack_name) %>
               <% if all_servers_not_started?(stack.id) %>
                 <div style="width:auto; float:left">
                   <%= button_to "Start", {:action => 'start_instances', :id => stack.id}, :method => :post, class: 'btn btn-success', :data => {toggle: "modal", target:"#loadingBar"} %>
@@ -71,9 +49,6 @@
                   <%= button_to "Delete", stack, :method => :delete, class: 'btn btn-danger', :data => {toggle: "modal", target:"#loadingBar"} %>
                 </div>
               <% end %>
-            <% else  %>
-              --loading--
-            <% end %>
             </div>
           </td>
         </tr>

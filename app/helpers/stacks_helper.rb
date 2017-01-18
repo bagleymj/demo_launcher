@@ -1,15 +1,4 @@
 module StacksHelper
-  def get_stack_status(stack_name)
-    resp = @cloudformation.describe_stacks({stack_name: stack_name})
-    stack_status = resp[0][0].stack_status
-    return stack_status
-  end
-
-  def stack_created?(stack_name)
-    stack_status = get_stack_status(stack_name)
-    stack_status == 'CREATE_COMPLETE'
-  end
-  
   def get_instance_ids(stack_id)
     instance_ids = []
     stack = Stack.find(stack_id)
