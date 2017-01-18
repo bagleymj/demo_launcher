@@ -1,16 +1,4 @@
 module StacksHelper
-  def get_public_ip(stack_name)
-    resp = @cloudformation.list_stack_resources(stack_name: stack_name)
-    resources = resp[0]
-    ip_resource = resources.select{|resource| resource.logical_resource_id == 'demoPublcIP'}
-    if ip_resource[0].nil?
-      ip_address = '--loading--'
-    else
-      ip_address = ip_resource[0].physical_resource_id
-    end
-    return ip_address
-  end
-
   def get_stack_status(stack_name)
     resp = @cloudformation.describe_stacks({stack_name: stack_name})
     stack_status = resp[0][0].stack_status
@@ -44,12 +32,11 @@ module StacksHelper
     instance_ids = get_instance_ids(stack_id)
     resp = @ec2.describe_instances(instance_ids: instance_ids)
     reservations = resp[0]
-    instance_count = 0
+    instance_count = instance_ids.length 
     running_count = 0
     instances = []
     reservations.each do |reservation|
       reservation.instances.each do |instance|
-        instance_count += 1
         if instance.state.name != "stopped"&&"terminated"
           running_count += 1
         end
@@ -62,11 +49,6 @@ module StacksHelper
   end
 
   def get_pretty_instance_count(stack_id)
-   #if stack_created?(stack_name)
-   #  instance_count = count_running_instances(stack_name)
-   #else
-   #  pretty_server_state = "--loading--"
-   #end
     instance_count = count_running_instances(stack_id)
     pretty_instance_count = instance_count[:running].to_s + " of " + instance_count[:total].to_s + " running" 
     return pretty_instance_count

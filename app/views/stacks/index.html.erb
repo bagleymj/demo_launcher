@@ -46,9 +46,6 @@
             </td>
           <% end %>
           <td>
-            <%= get_public_ip(stack.stack_name) %>
-          </td>
-          <td>
             <%= get_pretty_instance_count(stack.id) %>
           </td>
           <% if is_admin? %>
