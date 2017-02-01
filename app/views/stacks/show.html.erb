@@ -1,11 +1,15 @@
 <%= render 'instance_table' %>
 
-<div>
-  <%= link_to "Add Instance to Stack", {:controller => :instances, 
-                                      :action => :new,
-                                      :stack_id => @stack.id} %>
-</div>
-<div>
-  <%= link_to "Edit Boot Order", {:controller => :stacks, :action => :edit,
-                                      :stack_id => @stack.id} %>
-</div>
+<% if is_admin? %>
+  
+  <div>
+    <%= link_to "Add Instance to Stack", {:controller => :instances, 
+                                        :action => :new,
+                                        :stack_id => @stack.id} %>
+  </div>
+  <div>
+    <%= link_to "Edit Boot Order", {:controller => :stacks, :action => :edit,
+                                        :stack_id => @stack.id} %>
+  </div>
+  
+<% end %>

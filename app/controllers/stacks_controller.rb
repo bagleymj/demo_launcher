@@ -17,12 +17,16 @@ class StacksController < ApplicationController
 
 
   def new
-    @title = "Create New Stack"
-    manual_template = Template.new(:template_name => "Manual - No Template")
-    @templates = Template.all
-    @templates.unshift(manual_template)
-    @companies = Company.all
-    @stack = Stack.new
+    if is_admin?
+      @title = "Create New Stack"
+      manual_template = Template.new(:template_name => "Manual - No Template")
+      @templates = Template.all
+      @templates.unshift(manual_template)
+      @companies = Company.all
+      @stack = Stack.new
+    else
+      redirect_to stacks_path
+    end
   end
 
 
@@ -58,9 +62,13 @@ class StacksController < ApplicationController
 
 
   def edit
-    @stack = Stack.find(params[:id])
-    @title = "Edit boot order for #{@stack.stack_name}"
-    @ec2 = Account.ec2_client
+    if is_admin?
+      @stack = Stack.find(params[:id])
+      @title = "Edit boot order for #{@stack.stack_name}"
+      @ec2 = Account.ec2_client
+    else
+      redirect_to stacks_path
+    end
   end
 
   def modify_boot_order
