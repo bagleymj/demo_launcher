@@ -6,11 +6,13 @@ class StacksController < ApplicationController
   def index
     if is_admin?
       @stacks = Stack.all
+      @title = "All Stacks"
     else
-      @stacks = @current_user.company.stacks
+      company = @current_user.company
+      @title = "#{company.company_name}'s Stacks"
+      @stacks = company.stacks
     end
 
-    @title = "AWS Stacks"
     @cloudformation = Account.cf_client
     @ec2 = Account.ec2_client
   end
