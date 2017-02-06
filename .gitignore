@@ -20,3 +20,4 @@
 # Ignore all swap-files and backups
 *.swp
 *~
+config/database.yml\nconfig/secrets.yml
