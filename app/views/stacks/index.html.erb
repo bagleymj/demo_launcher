@@ -5,16 +5,12 @@
         <th>
           Stack Name
         </th>
-        <% if is_admin? %>
-          <th>
-            Company
-          </th>
-        <% end %>
-        <% if is_admin? %>
-          <th>
-            Stack Status
-          </th>
-        <% end %>
+        <th>
+          Company
+        </th>
+        <th>
+          Status
+        </th>
         <th>
           Actions
         </th>
@@ -24,11 +20,9 @@
           <td>
             <%= link_to stack.stack_name, stack_path(stack.id) %>
           </td>
-          <% if is_admin? %>
-            <td>
-              <%= stack.company.company_name %>
-            </td>
-          <% end %>
+          <td>
+            <%= stack.company.company_name %>
+          </td>
           <td>
             <%= get_pretty_instance_count(stack.id) %>
           </td>
