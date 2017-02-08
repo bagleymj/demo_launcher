@@ -191,7 +191,7 @@ class StacksController < ApplicationController
     stack = Stack.find params[:id]
     instance_ids = []
     stack.instances.each do |instance|
-      instance_ids << instance.instance_ids
+      instance_ids << instance.instance_id
     end
     ec2.stop_instances(instance_ids: instance_ids, force: true)
     sleep(5.seconds)
